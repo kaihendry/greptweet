@@ -6,8 +6,6 @@
 # Won't work on protected accounts (duh!)
 # No @mentions or DMs from other accounts
 
-set -e
-set -o pipefail
 umask 002
 api="http://api.twitter.com/1/statuses/user_timeline.xml?"
 
@@ -30,16 +28,19 @@ then
 	test "$2" && since='&max_id='$(tail -n1 $1.txt | awk -F"|" '{ print $1 }') # use max_id to get older tweets
 fi
 
-while test "$twitter_total" -gt "$saved"
+while test "$twitter_total" -gt "$saved" # Start of the important loop
 do
-	rm -f $temp
-	echo $1 tweet total "$twitter_total" is greater than the already saved "$saved"
-	echo Trying to get $(($twitter_total - $saved))
-	temp=$(mktemp)
-	echo curl -s "${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1"
-	curl -si "${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1" > $temp
 
+echo $1 tweet total "$twitter_total" is greater than the already saved "$saved"
+echo Trying to get $(($twitter_total - $saved))
+
+temp=$(mktemp)
 temp2=$(mktemp)
+
+echo "curl -s \"${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1\""
+curl -si "${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1" > $temp
+echo $?
+
 {
 { while read -r
 do
@@ -57,67 +58,62 @@ grep -iE 'rate|status' # show the interesting twitter rate limits
 
 mv $temp2 $temp
 
-	#head $temp # debug
+if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
+then
 
-	if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
+	head $temp
+	if test "$2" && test "$since"
 	then
-
-		if test $stalled -gt 5 # stall limit
-		then
-			echo Stalled $stalled times, come back later !
-			rm -f $temp
-			exit
-		fi
-		stalled=$(($stalled + 1 ))
-		echo Stalling for the $stalled time
-		sleep $(( RANDOM % 5 + 1 ))
-		continue
-
+		echo No old tweets ${since}
+	elif test "$since"
+	then
+		echo No new tweets ${since}
 	else
-
-		temp2=$(mktemp)
-		xmlstarlet sel -t -m "//statuses/status" -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" -n $temp |
-		perl -MHTML::Entities -pe 'decode_entities($_)' > $temp2
-		sed -i '/^$/d' $temp2
-		if test -z $temp2
-		then
-			echo $temp2 is empty
-			continue
-		fi
-		cat $temp2
-		if test -f $1.txt
-		then
-			mv $1.txt $temp
-			before=$(wc -l $temp | awk '{print $1}')
-		else
-			before=0
-			> $temp
-		fi
-		if test -s $temp2
-		then
-			cat $temp $temp2 | sort -r -n | uniq > $1.txt
-			after=$(wc -l $1.txt | awk '{print $1}')
-			echo Before: $before After: $after
-			if test "$before" -eq "$after"
-			then
-				echo "Unable to retrieve anything new, a since_id $since problem or 3200 limit?"
-				echo Approximately $(( $twitter_total - $after)) missing tweets
-				rm -f $temp $temp2
-				exit
-			fi
-		else
-			echo Empty $temp2
-			echo Twitter is returning empty responses, so we assume we have reached the limit!
-			mv $temp $1.txt
-			rm -f $temp2
-			exit
-		fi
-		rm $temp2
-
+		echo "Twitter is returning empty responses on page ${page} :("
 	fi
+	rm -f $temp $temp2
+	exit
 
-	page=$(($page + 1))
-	saved=$(wc -l $1.txt | tail -n1 | awk '{print $1}')
+fi
+
+xmlstarlet sel -t -m "//statuses/status" -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" -n $temp > $temp2
+cat $temp2 | perl -MHTML::Entities -pe 'decode_entities($_)' > $temp
+cat $temp | sed '/^$/d' > $temp2
+
+if test -z $temp2
+then
+	echo $temp2 is empty
+	rm -f $temp $temp2
+	continue
+fi
+
+#cat $temp2
+
+if test -f $1.txt
+then
+	mv $1.txt $temp
+	before=$(wc -l $temp | awk '{print $1}')
+else
+	before=0
+	> $temp
+fi
+
+cat $temp $temp2 | sort -r -n | uniq > $1.txt
+
+after=$(wc -l $1.txt | awk '{print $1}')
+echo Before: $before After: $after
+
+if test "$before" -eq "$after"
+then
+	echo Uable to retrieve anything new. Approximately $(( $twitter_total - $after)) missing tweets
+	rm -f $temp $temp2
+	exit
+fi
+
+rm -f $temp $temp2
+page=$(($page + 1))
+saved=$(wc -l $1.txt | tail -n1 | awk '{print $1}')
+echo $saved
 
 done
 
