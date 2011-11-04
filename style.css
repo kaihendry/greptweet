@@ -1,0 +1,20 @@
+body {
+	font: 1.2em 'Lucida Grande',sans-serif;
+}
+
+footer {
+	font-size: small; margin: 2em;
+
+}
+
+input {
+	font-size: 2em;
+	border:1px solid #A78B53;
+ }
+
+
+.twtr-widget { float: right; }
+
+#users li { display: inline; }
+
+#twitter { background: green; border-radius: 1em; padding: 1em; }
