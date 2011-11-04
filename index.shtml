@@ -77,9 +77,7 @@ to any already existing tweets.</p>
 
 <footer>
 
-<p><a href="/hgweb.cgi">Public domain source</a></p>
-<p><a href="/hgweb.cgi/file/tip/fetch-tweets.sh">Twitter backup script</a></p>
-<p>Written by <a href="http://hendry.iki.fi/">Kai Hendry</a></p>
+<p><a href="https://github.com/kaihendry/Greptweet">Public domain source</a></p>
 
 </footer>
 
