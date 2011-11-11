@@ -15,19 +15,25 @@ then
 	exit 1
 fi
 
-twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+if ! twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+then
+	curl "http://api.twitter.com/1/users/lookup.xml?screen_name=$1"
+	echo not working
+	exit
+fi
 
 page=1
 saved=0
 stalled=0
 
-if test -f $1.txt
+if test -s $1.txt
 then
 	saved=$(wc -l $1.txt | tail -n1 | awk '{print $1}')
 	since='&since_id='$(head -n1 $1.txt | awk -F"|" '{ print $1 }')
 	test "$2" && since='&max_id='$(tail -n1 $1.txt | awk -F"|" '{ print $1 }') # use max_id to get older tweets
 fi
 
+echo T:"$twitter_total" S:"$saved"
 while test "$twitter_total" -gt "$saved" # Start of the important loop
 do
 
@@ -65,7 +71,10 @@ grep -iE 'rate|status' # show the interesting twitter rate limits
 
 mv $temp2 $temp
 
-if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
+cat $temp
+
+cstatus=$(xmlstarlet sel -t -v "count(//statuses/status)" $temp)
+if test $cstatus -eq 0
 then
 
         head $temp
@@ -83,15 +92,32 @@ then
 
 fi
 
+echo "Parsing $cstatus status(es)"
 xmlstarlet sel -t -m "//statuses/status" -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" -n $temp > $tmpStats
+
+cat $tmpStats
 
 # Get long/short URLs preformatted for sed, have to specifically escape ampersands for sed.
 xmlstarlet sel -t -m "//statuses/status/entities/urls/url" -o "s," -v "url" -o "," -v "expanded_url" -o ",g" -n $temp | sed "s,\&,\\\&,g" > $tmpURLs
 # Replace short URLs with long URLs
-cat $tmpURLs | xargs -0 -I {} sed '{}' $tmpStats > $temp2
+
+if test -s $tmpURLs
+then
+	cat $tmpURLs
+	# Each regex applied to the whole of the 200 line file? Can't be cheap ... :/
+	cat $tmpURLs | xargs -0 -I {} sed '{}' $tmpStats > $temp2
+else
+	mv $tmpStats $temp2
+fi
+
+echo here
+cat $temp2
 
 cat $temp2 | perl -MHTML::Entities -pe 'decode_entities($_)' > $temp
-# I don't think you need cat here, sed will take the file
+
+echo here2
+cat $temp
+
 sed '/^$/d' $temp > $temp2
 
 if test -z $temp2
@@ -112,7 +138,7 @@ else
 	> $temp
 fi
 
-cat $temp $temp2 | sort -r -n | uniq > $1.txt
+cat $temp $temp2 | sort -r -n | uniq | sed 's/[ \t]*$//' > $1.txt
 
 after=$(wc -l $1.txt | awk '{print $1}')
 echo Before: $before After: $after
