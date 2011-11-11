@@ -34,11 +34,18 @@ do
 echo $1 tweet total "$twitter_total" is greater than the already saved "$saved"
 echo Trying to get $(($twitter_total - $saved))
 
+# Don't like your annonymous var names here, makes the code difficult to read
 temp=$(mktemp)
 temp2=$(mktemp)
+tmpURLs=$(mktemp)
+tmpStats=$(mktemp)
 
-echo "curl -s \"${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1\""
-curl -si "${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1" > $temp
+# Don't want to have to alter this in two places
+url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
+
+# Have no idea what's going on with temp and temp2 from now on
+echo "curl -s \"$url\""
+curl -si "$url" > $temp
 echo $?
 
 {
@@ -46,9 +53,9 @@ echo $?
 do
 if test "$REPLY" = $'\r'
 then
-	break
+        break
 else
-	echo "$REPLY" >&2 # print header to stderr
+        echo "$REPLY" >&2 # print header to stderr
 fi
 done
 cat; } < $temp > $temp2
@@ -61,24 +68,31 @@ mv $temp2 $temp
 if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
 then
 
-	head $temp
-	if test "$2" && test "$since"
-	then
-		echo No old tweets ${since}
-	elif test "$since"
-	then
-		echo No new tweets ${since}
-	else
-		echo "Twitter is returning empty responses on page ${page} :("
-	fi
-	rm -f $temp $temp2
-	exit
+        head $temp
+        if test "$2" && test "$since"
+        then
+                echo No old tweets ${since}
+        elif test "$since"
+        then
+                echo No new tweets ${since}
+        else
+                echo "Twitter is returning empty responses on page ${page} :("
+        fi
+        rm -f $temp $temp2
+        exit
 
 fi
 
-xmlstarlet sel -t -m "//statuses/status" -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" -n $temp > $temp2
+xmlstarlet sel -t -m "//statuses/status" -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" -n $temp > $tmpStats
+
+# Get long/short URLs preformatted for sed, have to specifically escape ampersands for sed.
+xmlstarlet sel -t -m "//statuses/status/entities/urls/url" -o "s," -v "url" -o "," -v "expanded_url" -o ",g" -n $temp | sed "s,\&,\\\&,g" > $tmpURLs
+# Replace short URLs with long URLs
+cat $tmpURLs | xargs -0 -I {} sed '{}' $tmpStats > $temp2
+
 cat $temp2 | perl -MHTML::Entities -pe 'decode_entities($_)' > $temp
-cat $temp | sed '/^$/d' > $temp2
+# I don't think you need cat here, sed will take the file
+sed '/^$/d' $temp > $temp2
 
 if test -z $temp2
 then
