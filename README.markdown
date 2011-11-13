@@ -1,6 +1,9 @@
 # <http://greptweet.com>
 
 * Authentication free, using <http://dev.twitter.com/doc/get/statuses/user_timeline>
+* Aim to [suckless](http://suckless.org/) and keep LOC low
+* Encourage folks to use `fetch-tweets.sh` themselves and get into shell ;)
+* Dependencies: curl, libhtml-parser-perl (to decode HTML entities), xmlstarlet, coreutils
 
 # Known issues
 

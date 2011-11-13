@@ -61,7 +61,7 @@ T("#users").hovercards({ linkify: false });
 });
 </script>
 
-<p><a href="https://github.com/kaihendry/Greptweet">Please contribute to the public domain source on Github!</a></p>
+<p><a href="https://github.com/kaihendry/Greptweet">Please contribute to the source on Github!</a></p>
 
 </body>
 </html>
