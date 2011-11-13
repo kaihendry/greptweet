@@ -84,4 +84,4 @@ fi
 cd $oldpwd; ./users.sh > users.shtml
 
 # Clean up in case it went wrong (trying to retrieve from an account with protected tweets)
-#test -f $oldpwd/u/$id.txt || rm -rf $oldpwd/u/$id
+test -s $oldpwd/u/$id/$id.txt || rm -rf $oldpwd/u/$id
