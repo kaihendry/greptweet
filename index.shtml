@@ -61,25 +61,7 @@ T("#users").hovercards({ linkify: false });
 });
 </script>
 
-<h3>Twitter limited</h3>
-
-<p>Twitter does not allow the possibility of retrieving more than 3200 tweets.
-However twitter generally stalls before coming close to this limit. Please
-consider complaining to Twitter about this issue.</p>
-
-<p>Type your name again up in the box above to update and append any new tweets
-to any already existing tweets.</p>
-
-<p><a
-	href="http://stackoverflow.com/questions/3547488">Please be patient for
-	results to appear</a></p>
-
-
-<footer>
-
-<p><a href="https://github.com/kaihendry/Greptweet">Public domain source</a></p>
-
-</footer>
+<p><a href="https://github.com/kaihendry/Greptweet">Please contribute to the public domain source on Github!</a></p>
 
 </body>
 </html>
