@@ -10,19 +10,24 @@ then
 	exit 1
 fi
 
-twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+if ! twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+then
+	echo Twitter API not working
+	exit
+fi
 
 page=1
 saved=0
 stalled=0
 
-if test -f $1.txt
+if test -s $1.txt
 then
 	saved=$(wc -l $1.txt | tail -n1 | awk '{print $1}')
 	since='&since_id='$(head -n1 $1.txt | awk -F"|" '{ print $1 }')
 	test "$2" && since='&max_id='$(tail -n1 $1.txt | awk -F"|" '{ print $1 }') # use max_id to get older tweets
 fi
 
+echo T:"$twitter_total" S:"$saved"
 while test "$twitter_total" -gt "$saved" # Start of the important loop
 do
 
@@ -70,7 +75,8 @@ then
 	exit
 fi
 
-xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "text" -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
+xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
+-m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
 while read -r first rest
 do
 	case $first in
