@@ -1,10 +1,5 @@
 #!/bin/bash
-# Twitter backup script - hendry AT iki.fi - please mail me suggestions to make this suckless
-# http://dev.twitter.com/doc/get/statuses/user_timeline
-# Known issues:
-# API only allows 3200 tweets to be downloaded this way :((
-# Won't work on protected accounts (duh!)
-# No @mentions or DMs from other accounts
+# vim: set ts=4 sw=4
 
 umask 002
 api="http://api.twitter.com/1/statuses/user_timeline.xml?"
@@ -48,43 +43,40 @@ echo $?
 do
 if test "$REPLY" = $'\r'
 then
-        break
+	break
 else
-        echo "$REPLY" >&2 # print header to stderr
+	echo "$REPLY" >&2 # print header to stderr
 fi
 done
 cat; } < $temp > $temp2
 } 2>&1 | # redirect back to stdout for grep
 grep -iE 'rate|status' # show the interesting twitter rate limits
-# date --date='@1320361995'
 
 mv $temp2 $temp
 
 if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
-then   
-
-        head $temp
-        if test "$2" && test "$since"
-        then   
-                echo No old tweets ${since}
-        elif test "$since"
-        then   
-                echo No new tweets ${since}
-        else   
-                echo "Twitter is returning empty responses on page ${page} :("
-        fi
-        rm -f $temp $temp2
-        exit
-
+then
+	head $temp
+	if test "$2" && test "$since"
+	then
+		echo No old tweets ${since}
+	elif test "$since"
+	then
+		echo No new tweets ${since}
+	else
+		echo "Twitter is returning empty responses on page ${page} :("
+	fi
+	rm -f $temp $temp2
+	exit
 fi
 
 xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "text" -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
 while read -r first rest
 do
-        case $first in
-                "text") echo $text; text=$rest ;;
-                "url")  set -- $(echo $rest); text=$(echo $text | sed s,$1,$2,g) ;;
-        esac
+	case $first in
+		"text") echo $text; text=$rest ;;
+		"url")  set -- $(echo $rest); text=$(echo $text | sed s,$1,$2,g) ;;
+	esac
 done
 echo $text
 } > $temp2
