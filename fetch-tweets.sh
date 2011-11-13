@@ -10,7 +10,9 @@ then
 	exit 1
 fi
 
-if ! twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+
+if ! test "$twitter_total" -gt 0
 then
 	echo Twitter API not working
 	exit
