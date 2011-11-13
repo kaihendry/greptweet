@@ -37,8 +37,10 @@ echo Trying to get $(($twitter_total - $saved))
 temp=$(mktemp)
 temp2=$(mktemp)
 
-echo "curl -s \"${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1\""
-curl -si "${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1" > $temp
+url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
+
+echo "curl -s \"$url\""
+curl -si "$url" > $temp
 echo $?
 
 {
@@ -46,9 +48,9 @@ echo $?
 do
 if test "$REPLY" = $'\r'
 then
-	break
+        break
 else
-	echo "$REPLY" >&2 # print header to stderr
+        echo "$REPLY" >&2 # print header to stderr
 fi
 done
 cat; } < $temp > $temp2
@@ -59,24 +61,34 @@ grep -iE 'rate|status' # show the interesting twitter rate limits
 mv $temp2 $temp
 
 if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
-then
+then   
 
-	head $temp
-	if test "$2" && test "$since"
-	then
-		echo No old tweets ${since}
-	elif test "$since"
-	then
-		echo No new tweets ${since}
-	else
-		echo "Twitter is returning empty responses on page ${page} :("
-	fi
-	rm -f $temp $temp2
-	exit
+        head $temp
+        if test "$2" && test "$since"
+        then   
+                echo No old tweets ${since}
+        elif test "$since"
+        then   
+                echo No new tweets ${since}
+        else   
+                echo "Twitter is returning empty responses on page ${page} :("
+        fi
+        rm -f $temp $temp2
+        exit
 
 fi
 
-xmlstarlet sel -t -m "//statuses/status" -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" -n $temp > $temp2
+xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "text" -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
+while read -r first rest
+do
+        case $first in
+                "text") echo $text; text=$rest ;;
+                "url")  set -- $(echo $rest); text=$(echo $text | sed s,$1,$2,g) ;;
+        esac
+done
+echo $text
+} > $temp2
+
 cat $temp2 | perl -MHTML::Entities -pe 'decode_entities($_)' > $temp
 cat $temp | sed '/^$/d' > $temp2
 
