@@ -10,23 +10,23 @@ then
 	exit 1
 fi
 
-twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v . 2>/dev/null)
 
-if ! test "$twitter_total" -gt 0
+if ! test "$twitter_total" -gt 0 2>/dev/null
 then
-	echo Twitter API not working
-	exit
+	echo 'Twitter API not working' >&2
+	exit 1
 fi
 
 page=1
 saved=0
 stalled=0
 
-if test -s $1.txt
+if test -s "$1.txt"
 then
-	saved=$(wc -l $1.txt | tail -n1 | awk '{print $1}')
-	since='&since_id='$(head -n1 $1.txt | awk -F"|" '{ print $1 }')
-	test "$2" && since='&max_id='$(tail -n1 $1.txt | awk -F"|" '{ print $1 }') # use max_id to get older tweets
+	saved=$(wc -l < "$1.txt")
+	since='&since_id='$(head -n1 "$1.txt" | cut -d'|' -f1)
+	test "$2" && since='&max_id='$(tail -n1 $1.txt | cut -d'|' -f1) # use max_id to get older tweets
 fi
 
 echo T:"$twitter_total" S:"$saved"
@@ -89,8 +89,8 @@ done
 echo $text
 } > $temp2
 
-cat $temp2 | perl -MHTML::Entities -pe 'decode_entities($_)' > $temp
-cat $temp | sed '/^$/d' > $temp2
+perl -MHTML::Entities -pe 'decode_entities($_)' < $temp2 > $temp
+sed '/^$/d' < $temp > $temp2
 
 if test -z $temp2
 then
@@ -104,15 +104,15 @@ fi
 if test -f $1.txt
 then
 	mv $1.txt $temp
-	before=$(wc -l $temp | awk '{print $1}')
+        before=$(wc -l < "$temp")
 else
 	before=0
 	> $temp
 fi
 
-cat $temp $temp2 | sort -r -n | uniq > $1.txt
+sort -r -n -u $temp $temp2 > "$1.txt"
 
-after=$(wc -l $1.txt | awk '{print $1}')
+after=$(wc -l < "$1.txt")
 echo Before: $before After: $after
 
 if test "$before" -eq "$after"
@@ -124,7 +124,7 @@ fi
 
 rm -f $temp $temp2
 page=$(($page + 1))
-saved=$(wc -l $1.txt | tail -n1 | awk '{print $1}')
+saved=$(wc -l < "$1.txt")
 echo $saved
 
 done
