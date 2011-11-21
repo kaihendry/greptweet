@@ -1,11 +1,5 @@
 #!/bin/bash -e
 # vim: set ts=4 sw=4
-
-cat <<END
-Cache-Control: no-cache
-Content-Type: text/plain
-
-END
 exec 2>&1
 
 oldpwd=$PWD
@@ -29,16 +23,32 @@ then
 	test "${parm[3]}" && old=1
 fi
 
-# Trying to workaround:
-# http://stackoverflow.com/questions/3547488/showing-a-long-running-shell-process-with-apache
-# Maybe needs a bigger buffer ???
-figlet $id
+cat <<END
+Cache-Control: no-cache
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <title>Fetching tweets of $id</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+</head>
+<body>
+
+<h1>Greptweet is running a long operation to fetch upto 3200 tweets from $id</h1>
+
+<p>Please be patient. If you close this page prematurely you can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
+
+<pre>
+END
+
+hash figlet 2>/dev/null && figlet $id
 
 if test -d u/$id
 then
 
 	echo Directory $id already exists
-	echo Visit http://greptweet.com/u/$id
 	echo Attempting an update
 
 	cd u/$id
@@ -48,18 +58,18 @@ then
 
 	if ! test -f lock
 	then
-		touch lock
+		touch lock # Bug here if tab is closed before it's finished
 		../../fetch-tweets.sh $id $old
-		rm lock
+		rm lock # We need to also clear to lock if fetch-tweets was killed by Apache
 	else
 		echo Fetching already!
 	fi
 
 else
 
-	if curl -I http://api.twitter.com/1/users/lookup.xml?screen_name=${id} | grep -q "Status: 404 Not Found"
+	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} | grep -q "Status: 404 Not Found"
 	then
-		echo $id does not exist on twitter.com
+		echo "$id does not exist on twitter.com :("
 		exit
 	fi
 
@@ -85,3 +95,11 @@ fi
 test -s $oldpwd/u/$id/$id.txt || rm -rf $oldpwd/u/$id
 
 cd $oldpwd; ./users.sh > users.shtml
+
+cat <<END
+</pre>
+<h1>Visit <a href="http://$HTTP_HOST/u/$id">http://$HTTP_HOST/u/$id</a></h1>
+</body>
+</html>
+END
+

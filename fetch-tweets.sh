@@ -63,7 +63,7 @@ mv $temp2 $temp
 
 if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp) -eq 0
 then
-	head $temp
+	head $temp | perl -MHTML::Entities -pe 'encode_entities($_)'
 	if test "$2" && test "$since"
 	then
 		echo No old tweets ${since}
