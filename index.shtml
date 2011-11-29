@@ -5,21 +5,23 @@
 <title>GrepTweet</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script>
-document.onunload = disableSubmit;
-function disableSubmit() {
-	document.getElementById("button").disabled = true;
-	}
+function submitPressed() {
+b = document.getElementById("b");
+b.disabled = true;
+b.innerHTML = '<img src="ajax-loader.gif">';
+document.forms.f.submit();
+}
 </script>
 </head>
 
 <body>
 
-<form action="create.cgi" method="get">
+<form name="f" action="create.cgi" method="get">
 <fieldset>
 <legend>Create or update a backup of your tweets, so you can grep them</legend>
 <p><label>Twitter username: <input type="text" name="id" required placeholder="kaihendry"></label></p>
 <p><input type="checkbox" name="o" />Try get older tweets, instead of newer tweets when updating</p>
-<input id="button" type="submit" value="Fetch tweets"/>
+<button id="b" onclick="submitPressed()">Fetch tweets</button>
 </fieldset>
 </form>
 
@@ -28,6 +30,7 @@ function disableSubmit() {
 <p>Please follow <a href="https://twitter.com/greptweet">@greptweet</a> for
 updates and <a href="https://github.com/kaihendry/Greptweet">contribute to the
 	source on Github!</a></p>
+
 
 </body>
 </html>
