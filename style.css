@@ -6,10 +6,16 @@ footer {
 	font-size: small; margin: 2em;
 }
 
-input {
+input[type=text] {
 	font-size: 2em;
 	border:1px solid #A78B53;
 }
+
+input[type=submit] {
+	font-size: 3em;
+}
+
+
 
 .twtr-widget { float: right; }
 

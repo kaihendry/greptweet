@@ -2,7 +2,7 @@ function grep(query) {
 
 	$.getJSON("/u/" + NAME + "/grep.php?q=" + query + "&jsoncallback=?", function(data) {
 		var results = "<p>Searched for: " + query + "</p><ol>";
-		for (i in data) {
+		for (var i in data) {
 			tweet = data[i].split('|');
 			if (tweet.length > 2) {
 			results += "<li><a href=\"http://twitter.com/" + NAME + "/status/" + tweet[0] + "\">" + tweet.slice(2) + "</a></li>"; // With datetime
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 	$("input[type=text]").focus();
 
-	$("#source").html("<a href=\"" + NAME + "\.txt\">" + NAME + " simple text backup file</a>");
+	$("#source").html('<a href="' + NAME + '.txt">' + NAME + ' simple text backup file</a>');
 
 });
 
