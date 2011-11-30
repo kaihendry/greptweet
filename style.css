@@ -15,10 +15,4 @@ button {
 	font-size: 3em;
 }
 
-
-
-.twtr-widget { float: right; }
-
 #users li { display: inline; }
-
-#twitter { background: green; border-radius: 1em; padding: 1em; }

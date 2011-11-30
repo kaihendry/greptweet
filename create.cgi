@@ -42,15 +42,12 @@ cat <<END
 </head>
 <body>
 
-<h1>Greptweet is running a long operation to fetch upto 3200 tweets from $id</h1>
+<h1>Greptweet is running a operation to fetch upto 3200 tweets from $id</h1>
 
-<p>Please be patient. If you close this page prematurely you can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
+<p>Please be patient. Closing this page prematurely you can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
 
 <pre>
 END
-
-
-
 
 hash figlet 2>/dev/null && figlet $id
 

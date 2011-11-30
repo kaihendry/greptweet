@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <title>GrepTweet</title>
-<script src="humane.min.js" async></script>
 <link id='theme' rel='stylesheet' href='themes/bigbox.css'/>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script src="humane.min.js" async></script>
 <script>
 function submitPressed() {
 if (document.forms.f.checkValidity()) {
