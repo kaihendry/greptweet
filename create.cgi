@@ -1,6 +1,15 @@
 #!/bin/bash -e
 # vim: set ts=4 sw=4
 exec 2>&1
+cat <<END
+Cache-Control: no-cache
+Content-Type: text/html
+
+END
+badinput() {
+	echo "<h1>Bad input, parameter id $@</h1>"
+	exit
+}
 
 oldpwd=$PWD
 
@@ -12,8 +21,8 @@ IFS=$saveIFS
 if test ${parm[0]} == "id"
 then
 	id=$(echo ${parm[1]} | tr -dc '[:alnum:]_' | tr '[:upper:]' '[:lower:]')
-	test ${#id} -gt 0  || exit
-	test ${#id} -lt 20  || exit
+	test ${#id} -gt 0  || badinput is empty
+	test ${#id} -lt 20  || badinput is too large
 else
 	exit
 fi
@@ -24,9 +33,6 @@ then
 fi
 
 cat <<END
-Cache-Control: no-cache
-Content-Type: text/html
-
 <!DOCTYPE html>
 <html>
  <head>
@@ -42,6 +48,9 @@ Content-Type: text/html
 
 <pre>
 END
+
+
+
 
 hash figlet 2>/dev/null && figlet $id
 
