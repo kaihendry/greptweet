@@ -3,13 +3,17 @@
 <head>
 <meta charset="utf-8" />
 <title>GrepTweet</title>
+<script src="humane.min.js" async></script>
+<link id='theme' rel='stylesheet' href='themes/bigbox.css'/>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script>
 function submitPressed() {
-b = document.getElementById("b");
-b.disabled = true;
-b.innerHTML = '<img src="ajax-loader.gif">';
-document.forms.f.submit();
+if (document.forms.f.checkValidity()) {
+	b = document.getElementById("b");
+	b.disabled = true;
+	humane.log("Please wait...");
+	document.forms.f.submit();
+}
 }
 </script>
 </head>
