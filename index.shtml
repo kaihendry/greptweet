@@ -11,9 +11,9 @@ function submitPressed() {
 if (document.forms.f.checkValidity()) {
 	b = document.getElementById("b");
 	b.disabled = true;
-	humane.log("Please wait...");
+	function() { humane.timeout= 5000; humane("Please wait..."); humane("Still loading..."); humane("Ah crap, sorry about this..."], ["I wish transfer chunked worked..."]); }
 	document.forms.f.submit();
-}
+	}
 }
 </script>
 </head>
