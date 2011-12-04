@@ -6,11 +6,10 @@
 <link id='theme' rel='stylesheet' href='themes/bigbox.css'/>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="humane.min.js" async></script>
-<script src="index.js"></script>
+<script src="index.js" async></script>
 </head>
 
 <body>
-
 <form name="f" action="create.cgi" method="get">
 <fieldset>
 <legend>Create or update a backup of your tweets, so you can grep them</legend>
