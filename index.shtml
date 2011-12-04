@@ -19,9 +19,6 @@
 <h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>Grep your tweets</small></h1>
 </div>
 
-<div class="row">
-<div class="span10">
-
 <form name="f" action="create.cgi" method="get" class="form-stacked">
 
 
@@ -49,18 +46,14 @@
 
 </form>
 
-</div>
-<div class="span4">
 <h3>Greppable tweeters</h3>
+
 <!--#include virtual="users.shtml" -->
-</div>
-</div>
 
 <footer>
 <p>Please follow <a href="https://twitter.com/greptweet">@greptweet</a> for
 updates and <a href="https://github.com/kaihendry/Greptweet">contribute to the
 source on Github</a></p>
-
 </footer>
 
 </div>
