@@ -1,9 +1,10 @@
 # <http://greptweet.com>
 
 * Authentication free, using <http://dev.twitter.com/doc/get/statuses/user_timeline>
-* Aim to [suckless](http://suckless.org/) and keep LOC low
+* Aim to [suckless](http://suckless.org) by keeping LOC low
 * Encourage folks to use `fetch-tweets.sh` themselves and get into shell ;)
 * Dependencies: curl, libhtml-parser-perl (to decode HTML entities), xmlstarlet, coreutils
+* Look and feel mostly by <http://twitter.github.com/bootstrap/>
 
 # Known issues
 
@@ -29,6 +30,13 @@ to any already existing tweets.
 
 I did file <https://dev.twitter.com/discussions/3414>, which later seemed to be fixed.
 
-# Shell script feedback (progressive loading) on the Web is solved by outputing more than one should
+# Shell script feedback (progressive loading) on the Web is quite tricky
 
 <http://stackoverflow.com/questions/3547488>
+
+Simple approaches tried:
+
+* Outputting more than one should (doesn't work actually)
+* Different newer servers of Apache seem to do transfer chunking better
+
+Our host is limited by a "stable" version of Apache.
