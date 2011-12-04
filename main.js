@@ -18,6 +18,7 @@ function grep(query) {
 $(document).ready(function() {
 
 	NAME = window.location.pathname.split('/')[2];
+	$("#name").html(NAME);
 
 	$("input[type=text]").change(function() {
 		query = this.value;
@@ -34,7 +35,7 @@ $(document).ready(function() {
 	$("input[type=text]").focus();
 
 	$("#source").html('<a href="' + NAME + '.txt">' + NAME + ' simple text backup file</a>');
-	$("#name").html(NAME);
+	document.title = "Greptweet " + NAME;
 
 });
 

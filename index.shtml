@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <title>GrepTweet</title>
 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
-<link id='theme' rel='stylesheet' href='themes/bigbox.css'/>
 <link rel="stylesheet" type="text/css" href="style.css">
-<script src="humane.min.js" async></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="bootstrap-buttons.js"></script>
 <script src="index.js"></script>
 </head>
 
@@ -16,7 +16,7 @@
 
 <div class="content">
 <div class="page-header">
-<h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>Search your tweets</small></h1>
+<h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>Grep your tweets</small></h1>
 </div>
 
 <div class="row">
@@ -43,11 +43,11 @@
 </ul>
 
 <div class="well">
-<button class="btn large primary" id="b" onclick="submitPressed()">Fetch tweets</button>
+<button class="btn large primary" id="b" data-loading-text="Fetching tweets..." onclick="submitPressed()">Fetch tweets</button>
+<span class="help-inline">First fetch tweets to search "grep" them</span>
 </div>
 
 </form>
-
 
 </div>
 <div class="span4">
@@ -59,7 +59,7 @@
 <footer>
 <p>Please follow <a href="https://twitter.com/greptweet">@greptweet</a> for
 updates and <a href="https://github.com/kaihendry/Greptweet">contribute to the
-source on Github!</a></p>
+source on Github</a></p>
 
 </footer>
 
