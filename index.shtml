@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>GrepTweet</title>
+<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 <link id='theme' rel='stylesheet' href='themes/bigbox.css'/>
 <link rel="stylesheet" type="text/css" href="style.css">
 <script src="humane.min.js" async></script>
@@ -20,21 +21,59 @@ if (document.forms.f.checkValidity()) {
 
 <body>
 
-<form name="f" action="create.cgi" method="get">
-<fieldset>
-<legend>Create or update a backup of your tweets, so you can grep them</legend>
-<p><label>Twitter username: <input type="text" name="id" required placeholder="kaihendry"></label></p>
-<p><input type="checkbox" name="o" />Try get older tweets, instead of newer tweets when updating</p>
-<button id="b" onclick="submitPressed()">Fetch tweets</button>
-</fieldset>
+<div class="container">
+
+<div class="content">
+<div class="page-header">
+<h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>Search your tweets</small></h1>
+</div>
+
+<div class="row">
+<div class="span10">
+
+<form name="f" action="create.cgi" method="get" class="form-stacked">
+
+
+<div class="clearfix">
+<label for="username">Twitter username</label>
+<div class="input">
+<input class="xlarge" id="username" type="text" name="id" size="16" required placeholder="kaihendry">
+</div>
+</div>
+
+
+<ul class="inputs-list">
+<li>
+<label>
+<input type="checkbox" name="o" />
+<span>Get older tweets, instead of newer tweets when updating</span>
+</label>
+</li>
+</ul>
+
+<div class="well">
+<button class="btn large primary" id="b" onclick="submitPressed()">Fetch tweets</button>
+</div>
+
 </form>
 
-<!--#include virtual="users.shtml" -->
 
+</div>
+<div class="span4">
+<h3>Greppable tweeters</h3>
+<!--#include virtual="users.shtml" -->
+</div>
+</div>
+
+<footer>
 <p>Please follow <a href="https://twitter.com/greptweet">@greptweet</a> for
 updates and <a href="https://github.com/kaihendry/Greptweet">contribute to the
-	source on Github!</a></p>
+source on Github!</a></p>
 
+</footer>
+
+</div>
+</div>
 
 </body>
 </html>

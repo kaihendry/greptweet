@@ -1,7 +1,7 @@
 function grep(query) {
 
 	$.getJSON("/u/" + NAME + "/grep.php?q=" + query + "&jsoncallback=?", function(data) {
-		var results = "<p>Searched for: " + query + "</p><ol>";
+		var results = "<p class=\"label\">Searched for: " + query + "</p><ol>";
 		for (var i in data) {
 			tweet = data[i].split('|');
 			if (tweet.length > 2) {
@@ -34,6 +34,7 @@ $(document).ready(function() {
 	$("input[type=text]").focus();
 
 	$("#source").html('<a href="' + NAME + '.txt">' + NAME + ' simple text backup file</a>');
+	$("#name").html(NAME);
 
 });
 

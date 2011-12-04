@@ -39,6 +39,7 @@ cat <<END
   <meta charset="utf-8" />
   <title>Fetching tweets of $id</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
+  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 </head>
 <body>
 
