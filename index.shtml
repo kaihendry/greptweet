@@ -30,6 +30,7 @@
 </div>
 
 
+<div class="clearfix">
 <ul class="inputs-list">
 <li>
 <label>
@@ -38,6 +39,7 @@
 </label>
 </li>
 </ul>
+</div>
 
 <div class="well">
 <button class="btn large primary" id="b" data-loading-text="Fetching tweets..." onclick="submitPressed()">Fetch tweets</button>
