@@ -53,9 +53,10 @@
 <!--#include virtual="users.shtml" -->
 
 <footer>
-<p>Please follow <a href="https://twitter.com/greptweet">@greptweet</a> for
-updates and <a href="https://github.com/kaihendry/Greptweet">contribute to the
-source on Github</a></p>
+<a href="https://twitter.com/greptweet" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size="large">Follow @greptweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+<p>Please <a href="https://github.com/kaihendry/Greptweet">contribute to the source on Github</a> :)</p>
 </footer>
 
 </div>
