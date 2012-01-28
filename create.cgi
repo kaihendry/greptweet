@@ -54,27 +54,11 @@ END
 
 if test -d u/$id
 then
-
-	echo Directory $id already exists
 	echo Attempting an update
-
-	cd u/$id
-
-	ln -sf ../../index.html || true
-	ln -sf ../../grep.php || true
-
-	if ! test -f lock
-	then
-		touch lock # Bug here if tab is closed before it's finished
-		../../fetch-tweets.sh $id $old
-		rm lock # We need to also clear to lock if fetch-tweets was killed by Apache
-	else
-		echo Fetching already!
-	fi
-
 else
 
-	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} | grep -q "Status: 404 Not Found"
+	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} | 
+	grep -q "Status: 404 Not Found"
 	then
 		echo "$id does not exist on twitter.com :("
 		exit
@@ -82,20 +66,22 @@ else
 
 	echo Need to create u/$id
 	mkdir u/$id
-	cd u/$id
 
-	ln -s ../../index.html
-	ln -s ../../grep.php
+fi
 
-	if ! test -f lock
-	then
-		touch lock
-		../../fetch-tweets.sh $id
-		rm lock
-	else
-		echo Fetching already!
-	fi
 
+cd u/$id
+
+ln -sf ../../index.html || true
+ln -sf ../../grep.php || true
+
+if ! test -f lock
+then
+	touch lock
+	../../fetch-tweets.sh $id
+	rm lock
+else
+	echo Fetching already! Locks are cleared daily
 fi
 
 echo "</pre>"
