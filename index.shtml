@@ -5,7 +5,7 @@
 <title>GrepTweet</title>
 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="style.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="bootstrap-buttons.js"></script>
 <script src="index.js"></script>
 </head>
@@ -16,7 +16,7 @@
 
 <div class="content">
 <div class="page-header">
-<h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>Grep your tweets</small></h1>
+<h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>you can search your tweets</small></h1>
 </div>
 
 <form name="f" action="create.cgi" method="get" class="form-stacked">
@@ -48,8 +48,7 @@
 
 </form>
 
-<a href="https://twitter.com/greptweet" class="twitter-follow-button" data-show-count="false" data-lang="en" data-size="large">Follow @greptweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<p><span class="label success">New</span> Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook.</p>
 
 <h3>Greppable tweeters</h3>
 

@@ -100,17 +100,26 @@ else
 
 fi
 
+echo "</pre>"
+
 # Clean up in case it went wrong (e.g. trying to retrieve from an account with protected tweets)
-test -s $oldpwd/u/$id/$id.txt || rm -rf $oldpwd/u/$id
+if test -s "$oldpwd/u/$id/$id.txt"
+then
 
 cd $oldpwd; ./users.sh > users.shtml
 
 cat <<END
-</pre>
 <h1 class="alert-message success">Now to grep fetched tweets, goto <a href="http://$HTTP_HOST/u/$id">http://$HTTP_HOST/u/$id</a></h1>
+END
+
+else
+	rm -rf $oldpwd/u/$id
+	echo '<h1 class="alert-message error">Sorry the Twitter API is failing. Try again later.</h1>'
+fi
+
+cat <<END
 </div>
 </div>
 </body>
 </html>
 END
-

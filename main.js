@@ -1,6 +1,6 @@
 function grep(query) {
 
-	$.getJSON("/u/" + NAME + "/grep.php?q=" + query + "&jsoncallback=?", function(data) {
+	$.getJSON("/u/" + NAME + "/grep.php?jsoncallback=?", { q: query }, function(data) {
 		var results = "<p class=\"label\">Searched for: " + query + "</p><ol>";
 		for (var i in data) {
 			tweet = data[i].split('|');
@@ -20,7 +20,7 @@ $(document).ready(function() {
 	NAME = window.location.pathname.split('/')[2];
 	$("#name").html(NAME);
 
-	$("input[type=text]").change(function() {
+	$("input[type=search]").change(function() {
 		query = this.value;
 		window.location.search = query;
 		grep(query);

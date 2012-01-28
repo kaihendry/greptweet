@@ -1,4 +1,5 @@
 <?php
+header('Content-type: application/json');
 if (empty($_GET['q'])) { die(); }
 $QUERY=urldecode(escapeshellarg(urlencode($_GET['q'])));
 //$fp = fopen('debug.log', 'a');
