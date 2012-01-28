@@ -35,7 +35,7 @@ $(document).ready(function() {
 	$("input[type=text]").focus();
 
 	footer = '<div class="row"><div class="span4"><a href="' + NAME + '.txt">' + NAME + ' text backup file</a></div>';
-	footer += '<div class="span4"><a href="' + "http://greptweet/create.cgi?id=" + NAME +'">Fetch ' + NAME + ' tweets</a></div></div>';
+	footer += '<div class="span4"><a href="' + "/create.cgi?id=" + NAME +'">Fetch ' + NAME + ' tweets</a></div></div>';
 	$("#source").html(footer);
 	document.title = "Greptweet " + NAME;
 
