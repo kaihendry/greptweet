@@ -52,8 +52,6 @@ cat <<END
 <pre>
 END
 
-hash figlet 2>/dev/null && figlet $id
-
 if test -d u/$id
 then
 
