@@ -109,7 +109,7 @@ then
 cd $oldpwd; ./users.sh > users.shtml
 
 cat <<END
-<h1 class="alert-message success">Now to grep fetched tweets, goto <a href="http://$HTTP_HOST/u/$id">http://$HTTP_HOST/u/$id</a></h1>
+<a href="http://$HTTP_HOST/u/$id"><h1 class="alert-message success">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>
 END
 
 else
