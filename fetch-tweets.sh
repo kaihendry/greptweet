@@ -104,7 +104,7 @@ fi
 if test -f $1.txt
 then
 	mv $1.txt $temp
-        before=$(wc -l < "$temp")
+	before=$(wc -l < "$temp")
 else
 	before=0
 	> $temp
@@ -117,7 +117,7 @@ echo Before: $before After: $after
 
 if test "$before" -eq "$after"
 then
-	echo Uable to retrieve anything new. Approximately $(( $twitter_total - $after)) missing tweets
+	echo Unable to retrieve anything new. Approximately $(( $twitter_total - $after)) missing tweets
 	rm -f $temp $temp2
 	exit
 fi
@@ -129,4 +129,4 @@ echo $saved
 
 done
 
-echo $1 saved $saved tweets of "$twitter_total": You are uptodate!
+echo $1 saved $saved tweets of "$twitter_total": You are up-to-date!
