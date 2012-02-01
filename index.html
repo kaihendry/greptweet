@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <title>Grepping twitter backup</title>
 <meta content="width=device-width, initial-scale=1,maximum-scale=1.0;" name=viewport>
-<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 
@@ -18,14 +18,15 @@
   <li id="name" class="active">You are here</li>
 </ul>
 
-<input type="search" name="q" class="xlarge" />
-<button class="btn primary">Greptweet</button>
+<div class="well">
+<input type="search" class="input-medium search-query">
+<button type="submit" class="btn btn-large btn-primary"><i class="icon-search"></i> Greptweet</button>
+</div>
+
 
 <div id="results"></div>
 
-
 <p class="help-inline">Type a search query like <a href="?foo">foo</a></p>
-
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script async src="/main.js"></script>

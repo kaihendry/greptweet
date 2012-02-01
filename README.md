@@ -34,3 +34,8 @@ I did file <https://dev.twitter.com/discussions/3414>, which later seemed to be 
 ## Shell script feedback on the Web works by disabling Apache's mod_deflate !
 
 <http://stackoverflow.com/a/9022823/4534>
+
+
+# TODO
+
+Make fetch-tweets.sh return nicer output like a % for <http://twitter.github.com/bootstrap/components.html#progress>

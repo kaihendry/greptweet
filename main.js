@@ -22,20 +22,21 @@ $(document).ready(function() {
 
 	$("input[type=search]").change(function() {
 		query = this.value;
+		console.log(query);
 		window.location.search = query;
 		grep(query);
 	});
 
 	if (window.location.search) {
 		searchquery = window.decodeURIComponent(window.location.search.substr(1));
-		$("input[type=text]").val(searchquery);
+		$("input[type=search]").val(searchquery);
 		grep(searchquery);
 	}
 
 	$("input[type=text]").focus();
 
-	footer = '<div class="row"><div class="span4"><a href="' + NAME + '.txt">' + NAME + ' text backup file</a></div>';
-	footer += '<div class="span4"><a href="' + "/create.cgi?id=" + NAME +'">Fetch ' + NAME + ' tweets</a></div></div>';
+	footer = '<p><a href="' + NAME + '.txt" class="btn primary"><i class="icon-download"></i> Download</a>';
+	footer += '<a href="' + "/create.cgi?id=" + NAME +'" class="btn"><i class="icon-refresh"></i> Update</a></p>'
 	$("#source").html(footer);
 	document.title = "Greptweet " + NAME;
 

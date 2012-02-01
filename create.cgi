@@ -38,14 +38,14 @@ cat <<END
  <head>
   <meta charset="utf-8" />
   <title>Fetching tweets of $id</title>
-  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <div class="container">
 <div class="content">
 
-<h1 class="alert-message info">Fetching upto 3200 tweets from $id</h1>
+<h1 class="alert alert-info">Fetching upto 3200 tweets from $id</h1>
 
 <p class="help-inline">Please be patient. Closing this page prematurely you can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
 
@@ -93,12 +93,12 @@ then
 cd $oldpwd; ./users.sh > users.shtml
 
 cat <<END
-<a href="http://$HTTP_HOST/u/$id"><h1 class="alert-message success">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>
+<a href="http://$HTTP_HOST/u/$id"><h1 class="alert alert-success">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>
 END
 
 else
 	rm -rf $oldpwd/u/$id
-	echo '<h1 class="alert-message error">Sorry the Twitter API is failing. Try again later.</h1>'
+	echo '<h1 class="alert alert-error">Sorry the Twitter API is failing. Try again later.</h1>'
 fi
 
 cat <<END
