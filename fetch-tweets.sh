@@ -77,13 +77,24 @@ then
 	exit
 fi
 
+shortDomains="t.co bit.ly tinyurl.com goo.gl"
+
 xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
 -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
 while read -r first rest
 do
 	case $first in
 		"text") echo $text; text=$rest ;;
-		"url")  set -- $(echo $rest); text=$(echo $text | sed s,$1,$2,g) ;;
+		"url")  
+                  set -- $(echo $rest)
+                  finUrl=$2
+                  domain=$(echo $finUrl | cut -d'/' -f3)
+                  if [[ "$shortDomains" = *$domain* ]]
+                  then
+                    finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
+                  fi
+                  text=$(echo $text | sed s,$1,$finUrl,g) 
+                ;;
 	esac
 done
 echo $text
