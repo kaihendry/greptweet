@@ -10,7 +10,8 @@ then
 	exit 1
 fi
 
-twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" | xmlstarlet sel -t -m "//users/user/statuses_count" -v . 2>/dev/null)
+twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
+xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
 
 if ! test "$twitter_total" -gt 0 2>/dev/null
 then
@@ -20,7 +21,6 @@ fi
 
 page=1
 saved=0
-stalled=0
 
 if test -s "$1.txt"
 then
@@ -81,20 +81,21 @@ shortDomains="t.co bit.ly tinyurl.com goo.gl"
 
 xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
 -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
+
 while read -r first rest
 do
 	case $first in
 		"text") echo $text; text=$rest ;;
-		"url")  
-                  set -- $(echo $rest)
-                  finUrl=$2
-                  domain=$(echo $finUrl | cut -d'/' -f3)
-                  if [[ "$shortDomains" = *$domain* ]]
-                  then
-                    finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
-                  fi
-                  text=$(echo $text | sed s,$1,$finUrl,g) 
-                ;;
+		"url")
+			  set -- $(echo $rest)
+			  finUrl=$2
+			  domain=$(echo $finUrl | cut -d'/' -f3)
+			  if [[ "$shortDomains" = *$domain* ]]
+			  then
+				finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
+			  fi
+			  text=$(echo $text | sed s,$1,$finUrl,g)
+			;;
 	esac
 done
 echo $text
@@ -110,8 +111,6 @@ then
 	continue
 fi
 
-#cat $temp2
-
 if test -f $1.txt
 then
 	mv $1.txt $temp
@@ -122,6 +121,7 @@ else
 fi
 
 sort -r -n -u $temp $temp2 > "$1.txt"
+rm -f $temp $temp2
 
 after=$(wc -l < "$1.txt")
 echo Before: $before After: $after
@@ -129,11 +129,9 @@ echo Before: $before After: $after
 if test "$before" -eq "$after"
 then
 	echo Unable to retrieve anything new. Approximately $(( $twitter_total - $after)) missing tweets
-	rm -f $temp $temp2
 	exit
 fi
 
-rm -f $temp $temp2
 page=$(($page + 1))
 saved=$(wc -l < "$1.txt")
 echo $saved
