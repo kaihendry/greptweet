@@ -61,7 +61,7 @@ grep -iE 'rate|status' # show the interesting twitter rate limits
 
 mv $temp2 $temp
 
-if test $(xmlstarlet sel -t -v "count(//statuses/status)" $temp 2>/dev/null) -eq 0
+if test "$(xmlstarlet sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
 then
 	head $temp | grep -q "Over capacity" && echo "Twitter is OVER CAPACITY"
 	if test "$2" && test "$since"
