@@ -85,7 +85,7 @@ xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_
 while read -r first rest
 do
 	case $first in
-		"text") echo $text; text=$rest ;;
+		"text") echo "$text"; text="$rest" ;;
 		"url")
 			  set -- $(echo $rest)
 			  finUrl=$2
@@ -98,7 +98,7 @@ do
 			;;
 	esac
 done
-echo $text
+echo "$text"
 } > $temp2
 
 perl -MHTML::Entities -pe 'decode_entities($_)' < $temp2 > $temp
