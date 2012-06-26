@@ -96,7 +96,7 @@ do
 			  set -- $(echo $rest)
 			  finUrl=$2
 			  domain=$(echo $finUrl | cut -d'/' -f3)
-			  if [[ "$shortDomains" = *$domain* ]]
+			  if [ "$shortDomains" = *$domain* ]
 			  then
 				finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
 			  fi
