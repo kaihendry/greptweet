@@ -6,7 +6,7 @@ api="http://api.twitter.com/1/statuses/user_timeline.xml?"
 
 if ! test "$1"
 then
-	echo -e "Please specify twitter username\n e.g. $0 kaihendry"
+	printf "Please specify twitter username\n e.g. %s kaihendry\n" $0
 	exit 1
 fi
 
