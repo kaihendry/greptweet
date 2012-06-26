@@ -47,24 +47,25 @@ temp2=$(mktemp "$1.XXXX")
 url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
 
 echo "curl -s \"$url\""
-curl -si "$url" > $temp
+curl -si "$url" | tee $temp2 > $temp
 echo $?
 
-{
-{ while read -r
-do
-if test "$REPLY" = $'\r'
-then
-	break
-else
-	echo "$REPLY" >&2 # print header to stderr
-fi
-done
-cat; } < $temp > $temp2
-} 2>&1 | # redirect back to stdout for grep
-grep -iE 'rate|status' # show the interesting twitter rate limits
+# keep only headers in $temp2
+ed -s $temp2 << "EOF_ED1"
+/^[[:space:]]*$/
+.,$d
+wq
+EOF_ED1
 
-mv $temp2 $temp
+# keep only content in $temp
+ed -s $temp << "EOF_ED2"
+/^[[:space:]]*$/
+1,.d
+wq
+EOF_ED2
+
+
+grep -iE 'rate|status' $temp2 # show the interesting twitter rate limits
 
 if test "$(xmlstarlet sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
 then
