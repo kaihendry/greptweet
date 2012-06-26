@@ -10,6 +10,11 @@ then
 	exit 1
 fi
 
+# xmlstarlet is often just xml
+if ! which xmlstarlet >> /dev/null && which xml >> /dev/null; then
+        alias xmlstarlet=xml
+fi
+
 twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
 xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
 
