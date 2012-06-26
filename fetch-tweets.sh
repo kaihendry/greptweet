@@ -36,8 +36,8 @@ do
 echo $1 tweet total "$twitter_total" is greater than the already saved "$saved"
 echo Trying to get $(($twitter_total - $saved))
 
-temp=$(mktemp)
-temp2=$(mktemp)
+temp=$(mktemp "$1.XXXX")
+temp2=$(mktemp "$1.XXXX")
 
 url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
 
