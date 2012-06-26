@@ -11,12 +11,17 @@ then
 fi
 
 # xmlstarlet is often just xml
-if ! which xmlstarlet >> /dev/null && which xml >> /dev/null; then
-        alias xmlstarlet=xml
+if which xmlstarlet >> /dev/null; then
+    XMLSTARLET=xmlstarled
+elif which xml >> /dev/null; then
+    XMLSTARLET=xml
+else
+    echo "xmlstarlet not found :("
+    exit 1
 fi
 
 twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
-xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+$XMLSTARLET sel -t -m "//users/user/statuses_count" -v .)
 
 if ! test "$twitter_total" -gt 0 2>/dev/null
 then
@@ -67,7 +72,7 @@ EOF_ED2
 
 grep -iE 'rate|status' $temp2 # show the interesting twitter rate limits
 
-if test "$(xmlstarlet sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
+if test "$($XMLSTARLET sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
 then
 	head $temp | grep -q "Over capacity" && echo "Twitter is OVER CAPACITY"
 	if test "$2" && test "$since"
@@ -85,7 +90,7 @@ fi
 
 shortDomains="t.co bit.ly tinyurl.com goo.gl"
 
-xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
+$XMLSTARLET sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
 -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
 
 while read -r first rest
