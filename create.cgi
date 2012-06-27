@@ -6,6 +6,7 @@ Cache-Control: no-cache
 Content-Type: text/html
 
 END
+
 badinput() {
 	echo "<h1>Bad input, parameter id $@</h1>"
 	exit
@@ -57,15 +58,14 @@ then
 	echo Attempting an update
 else
 
-	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} | 
+	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} |
 	grep -q "Status: 404 Not Found"
 	then
 		echo "$id does not exist on twitter.com :("
 		exit
 	fi
 
-	echo Need to create u/$id
-	mkdir u/$id
+	mkdir -p u/$id
 
 fi
 

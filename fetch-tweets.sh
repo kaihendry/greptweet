@@ -10,14 +10,12 @@ then
 	exit 1
 fi
 
-# xmlstarlet is often just xml
-if which xmlstarlet >> /dev/null; then
-    XMLSTARLET=xmlstarled
-elif which xml >> /dev/null; then
-    XMLSTARLET=xml
-else
-    echo "xmlstarlet not found :("
-    exit 1
+command -v xmlstarlet >/dev/null && XMLSTARLET=xmlstarlet
+command -v xml >/dev/null && XMLSTARLET=xml
+if ! test $XMLSTARLET
+then
+	echo "xmlstarlet not found :("
+	exit 1
 fi
 
 twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
@@ -98,14 +96,14 @@ do
 	case $first in
 		"text") echo "$text"; text="$rest" ;;
 		"url")
-			  set -- $(echo $rest)
-			  finUrl=$2
-			  domain=$(echo $finUrl | cut -d'/' -f3)
-			  if [ "$shortDomains" = *$domain* ]
-			  then
+			set -- $(echo $rest)
+			finUrl=$2
+			domain=$(echo $finUrl | cut -d'/' -f3)
+			if echo $shortDomains | grep -q $domain # TODO might match greedily, e.g. with t.co
+			then
 				finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
-			  fi
-			  text=$(echo $text | sed s,$1,$finUrl,g)
+			fi
+			text=$(echo $text | sed s,$1,$finUrl,g)
 			;;
 	esac
 done
