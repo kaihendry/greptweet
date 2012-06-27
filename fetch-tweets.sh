@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # vim: set ts=4 sw=4
 
 umask 002
@@ -6,12 +6,22 @@ api="http://api.twitter.com/1/statuses/user_timeline.xml?"
 
 if ! test "$1"
 then
-	echo -e "Please specify twitter username\n e.g. $0 kaihendry"
+	printf "Please specify twitter username\n e.g. %s kaihendry\n" $0
 	exit 1
 fi
 
+# xmlstarlet is often just xml
+if which xmlstarlet >> /dev/null; then
+    XMLSTARLET=xmlstarled
+elif which xml >> /dev/null; then
+    XMLSTARLET=xml
+else
+    echo "xmlstarlet not found :("
+    exit 1
+fi
+
 twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
-xmlstarlet sel -t -m "//users/user/statuses_count" -v .)
+$XMLSTARLET sel -t -m "//users/user/statuses_count" -v .)
 
 if ! test "$twitter_total" -gt 0 2>/dev/null
 then
@@ -36,32 +46,33 @@ do
 echo $1 tweet total "$twitter_total" is greater than the already saved "$saved"
 echo Trying to get $(($twitter_total - $saved))
 
-temp=$(mktemp)
-temp2=$(mktemp)
+temp=$(mktemp "$1.XXXX")
+temp2=$(mktemp "$1.XXXX")
 
 url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
 
 echo "curl -s \"$url\""
-curl -si "$url" > $temp
+curl -si "$url" | tee $temp2 > $temp
 echo $?
 
-{
-{ while read -r
-do
-if test "$REPLY" = $'\r'
-then
-	break
-else
-	echo "$REPLY" >&2 # print header to stderr
-fi
-done
-cat; } < $temp > $temp2
-} 2>&1 | # redirect back to stdout for grep
-grep -iE 'rate|status' # show the interesting twitter rate limits
+# keep only headers in $temp2
+ed -s $temp2 << "EOF_ED1"
+/^[[:space:]]*$/
+.,$d
+wq
+EOF_ED1
 
-mv $temp2 $temp
+# keep only content in $temp
+ed -s $temp << "EOF_ED2"
+/^[[:space:]]*$/
+1,.d
+wq
+EOF_ED2
 
-if test "$(xmlstarlet sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
+
+grep -iE 'rate|status' $temp2 # show the interesting twitter rate limits
+
+if test "$($XMLSTARLET sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
 then
 	head $temp | grep -q "Over capacity" && echo "Twitter is OVER CAPACITY"
 	if test "$2" && test "$since"
@@ -79,7 +90,7 @@ fi
 
 shortDomains="t.co bit.ly tinyurl.com goo.gl"
 
-xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
+$XMLSTARLET sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
 -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
 
 while read -r first rest
@@ -90,7 +101,7 @@ do
 			  set -- $(echo $rest)
 			  finUrl=$2
 			  domain=$(echo $finUrl | cut -d'/' -f3)
-			  if [[ "$shortDomains" = *$domain* ]]
+			  if [ "$shortDomains" = *$domain* ]
 			  then
 				finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
 			  fi
