@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # vim: set ts=4 sw=4
 
 umask 002
@@ -81,8 +81,6 @@ then
 	exit
 fi
 
-shortDomains="t.co bit.ly tinyurl.com goo.gl"
-
 xml sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
 -m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
 
@@ -92,13 +90,8 @@ do
 		"text") echo "$text"; text="$rest" ;;
 		"url")
 			set -- $(echo $rest)
-			finUrl=$2
-			domain=$(echo $finUrl | cut -d'/' -f3)
-			if echo $shortDomains | grep -q $domain # TODO might match greedily, e.g. with t.co
-			then
-				finUrl=$(curl "$finUrl" -s -L -I -o /dev/null -w '%{url_effective}')
-			fi
-			text=$(echo $text | sed s,$1,$finUrl,g)
+			expandedURL=$(curl "$2" -m5 -s -L -I -o /dev/null -w '%{url_effective}')
+			text=${text//"$1"/$expandedURL} # BASHism #11
 			;;
 	esac
 done
