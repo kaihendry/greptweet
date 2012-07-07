@@ -6,9 +6,6 @@
 <meta content="width=device-width, initial-scale=1,maximum-scale=1.0;" name=viewport>
 <link rel="stylesheet" href="/bootstrap/docs/assets/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="style.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="/bootstrap/js/bootstrap-button.js"></script>
-<script src="index.js"></script>
 </head>
 
 <body>
@@ -31,25 +28,15 @@
 </div>
 </div>
 
-
-<label class="checkbox">
-<input type="checkbox" name="o">Fetch older tweets, instead of newer tweets when updating
-</label>
-
-
-<button class="btn btn-large btn-primary" id="b" data-loading-text="Fetching tweets..." onclick="submitPressed()">Fetch tweets</button>
+<button class="btn btn-large btn-primary" id="b" onclick="submitPressed()">Fetch tweets</button>
 </div>
 
 </form>
 
-<p><span class="label label-success">New</span> Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook</p>
-
-<h3>Greppable tweeters</h3>
-
-<!--#include virtual="users.shtml" -->
+<p>Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook</p>
 
 <footer>
-<p>Please <a href="https://github.com/kaihendry/Greptweet">contribute to the source on Github</a> :)</p>
+<p>Please <a href="https://github.com/kaihendry/Greptweet">contribute on Github</a> :)</p>
 </footer>
 
 </div>

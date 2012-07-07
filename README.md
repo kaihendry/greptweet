@@ -1,10 +1,10 @@
 # <http://greptweet.com>
 
 * Authentication free, using <http://dev.twitter.com/doc/get/statuses/user_timeline>
-* Aim to [suckless](http://suckless.org) by keeping lines of code low
+* Aim to [suck less](http://suckless.org) by keeping lines of code low
 * Encourage folks to use `fetch-tweets.sh` themselves and get into shell ;)
 * Dependencies: curl, libhtml-parser-perl (to decode HTML entities), xmlstarlet, coreutils, PHP
-* Look and feel mostly by <http://twitter.github.com/bootstrap/>
+* Look and feel mostly by <http://twitter.github.com/bootstrap>
 * **Please** review and comment on the code!
 
 # Known limitations
@@ -35,7 +35,6 @@ I did file <https://dev.twitter.com/discussions/3414>, which later seemed to be 
 
 <http://stackoverflow.com/a/9022823/4534>
 
+Make sure your httpd does utf8 all the time:
 
-# TODO
-
-Make fetch-tweets.sh return nicer output like a % for <http://twitter.github.com/bootstrap/components.html#progress>
+	AddDefaultCharset utf-8

@@ -48,7 +48,7 @@ cat <<END
 
 <h1 class="alert alert-info">Fetching upto 3200 tweets from $id</h1>
 
-<p class="help-inline">Please be patient. Closing this page prematurely you can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
+<p class="help-inline">Please be patient. Closing this page prematurely can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
 
 <pre>
 END
@@ -90,11 +90,18 @@ echo "</pre>"
 if test -s "$oldpwd/u/$id/$id.txt"
 then
 
-cd $oldpwd; ./users.sh > users.shtml
-
+if echo $id | grep -q -v '_' # Underscores in domain names is a no no
+then
+	mkdir /srv/www/$id.greptweet.com 2> /dev/null || true
+	echo Redirect / http://greptweet.com/u/$id > /srv/www/$id.greptweet.com/.htaccess
+cat <<END
+<a href="http://$id.greptweet.com"><h1 class="alert alert-success">Goto http://$id.greptweet.com to grep!</h1></a>
+END
+else
 cat <<END
 <a href="http://$HTTP_HOST/u/$id"><h1 class="alert alert-success">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>
 END
+fi
 
 else
 	rm -rf $oldpwd/u/$id
