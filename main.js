@@ -22,7 +22,6 @@ $(document).ready(function() {
 
 	$("input[type=search]").change(function() {
 		query = this.value;
-		console.log(query);
 		window.location.search = query;
 		grep(query);
 	});
@@ -40,5 +39,7 @@ $(document).ready(function() {
 	$("#source").html(footer);
 	document.title = "Greptweet " + NAME;
 
-});
+	document.cookie = 'u=' + NAME + '; expires=Thu, 2 Aug 2021 20:47:11 UTC; path=/';
+	$("#home").click(function(){ document.cookie = 'u=' + NAME + '; expires=Thu, 2 Aug 2001 20:47:11 UTC; path=/'; });
 
+});

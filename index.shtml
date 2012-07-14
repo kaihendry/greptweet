@@ -6,6 +6,27 @@
 <meta content="width=device-width, initial-scale=1,maximum-scale=1.0;" name=viewport>
 <link rel="stylesheet" href="/bootstrap/docs/assets/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="style.css">
+<script>
+function getCookie( oName ) {
+	var splitcookie = document.cookie.split( "; " ), x, cookiepair;
+	for( x = 0; x < splitcookie.length; x = x + 1 ) {
+		cookiepair = splitcookie[x].split( "=" );
+		if( cookiepair[0] === encodeURIComponent( oName ) ) {
+			if( cookiepair[1] ) {
+				return decodeURIComponent( cookiepair[1] );
+			} else {
+				return '';
+			}
+		}
+	}
+	return null;
+}
+
+user = getCookie("u");
+if (user) { window.location.replace("/u/" + user); }
+
+</script>
+
 </head>
 
 <body>
