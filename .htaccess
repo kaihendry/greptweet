@@ -1,1 +1,2 @@
 DirectoryIndex index.shtml index.html
+AddType text/cache-manifest .manifest

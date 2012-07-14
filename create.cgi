@@ -103,6 +103,8 @@ cat <<END
 END
 fi
 
+ln -sf $id.txt tweets.txt # Application cache greptweet.appcache
+
 else
 	rm -rf $oldpwd/u/$id
 	echo '<h1 class="alert alert-error">Sorry the Twitter API is failing. Try again later.</h1>'
