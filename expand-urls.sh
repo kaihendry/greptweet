@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # vim: set ts=4 sw=4
 
-test -s $1 || exit
-test ${1##*.} = 'txt' || exit
+test -s "$1" || exit
+test "${1##*.}" = 'txt' || exit
 
 temp=$(mktemp "$1.XXXX")
+trap "rm -f $temp" INT
 
 IFS='|'
 while read -r id date text
