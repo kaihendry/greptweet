@@ -1,7 +1,10 @@
 # <http://greptweet.com>
 
+<a href="http://www.flickr.com/photos/hendry/7577182774/" title="Offline Greptweet on Chrome IOS by Kai Hendry, on Flickr"><img src="http://farm8.staticflickr.com/7133/7577182774_d5b654ea69_m.jpg" width="160" height="240" alt="Offline Greptweet on Chrome IOS"></a>
+
+* Uses [HTML offline feature](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html)
 * Authentication free, using <http://dev.twitter.com/doc/get/statuses/user_timeline>
-* Aim to [suck less](http://suckless.org) by keeping lines of code low
+* Aims to [suck less](http://suckless.org) by keeping lines of code low
 * Encourage folks to use `fetch-tweets.sh` themselves and get into shell ;)
 * Dependencies: curl, libhtml-parser-perl (to decode HTML entities), xmlstarlet, coreutils, PHP
 * Look and feel mostly by <http://twitter.github.com/bootstrap>
@@ -14,26 +17,15 @@
 * Won't work on protected accounts (duh!)
 * No @mentions or DMs from other accounts
 
-## Fetching already!
+# Local or server ?
 
-Closing a window whilst creating an account,
-<http://greptweet/create.cgi?id=example>, can cause issues. Need to study
-<http://mywiki.wooledge.org/ProcessManagement>.
+What is faster? Using `grep.php` or just doing it via Javascript (we could drop PHP then!)?
 
-## @twitterapi is super flaky
-
-Twitter does not allow the possibility of retrieving more than 3200 tweets. :(
-However twitter generally stalls before coming close to this limit. Please
-consider complaining to Twitter about this issue.
-
-Type your name again up in the box above to update and append any new tweets
-to any already existing tweets.
-
-I did file <https://dev.twitter.com/discussions/3414>, which later seemed to be fixed.
-
-## Shell script feedback on the Web works by disabling Apache's mod_deflate !
+# Shell script feedback on the Web works by disabling Apache's mod_deflate !
 
 <http://stackoverflow.com/a/9022823/4534>
+
+There is a problem whereby if the page is killed whilst fetching, the lock isn't cleared then and there because `trap` does not seem to work.
 
 Make sure your httpd does utf8 all the time:
 
