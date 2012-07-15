@@ -103,8 +103,8 @@ cat <<END
 END
 fi
 
-ln -sf $id.txt tweets.txt # Application cache greptweet.appcache
-ln -sf ../../greptweet.appcache
+ln -sf $id.txt tweets.txt
+sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache  > greptweet.appcache
 
 else
 	rm -rf $oldpwd/u/$id

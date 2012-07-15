@@ -1,24 +1,18 @@
-var l = []; // avoid expensive $.get
+var l = []; // avoid expensive $.get for local searches
 function search(query, lines) {
 	var results = "<p class=\"label\">Searched for: " + query + "</p><ol>";
 	for (var i = 0; i < lines.length; i++) {
 		tweet = lines[i].split('|');
 		var re = new RegExp(query, 'i');
 
-		switch (tweet.length)
-		{
-			case 3:
-			if (tweet[2].match(re)) {
-				results += "<li><a href=\"http://twitter.com/" + NAME + "/status/" + tweet[0] + "\">" + tweet.slice(2) + "</a></li>";
-			}
-			break;
-			case 2:
+		if (tweet.length == 2) {
 			if (tweet[1].match(re)) {
 				results += "<li><a href=\"http://twitter.com/" + NAME + "/status/" + tweet[0] + "\">" + tweet.slice(1) + "</a></li>";
 			}
-			break;
-			default:
-				console.log('ODD: ' + tweet);
+		} else {
+			if (tweet[2] !== undefined && tweet[2].match(re)) {
+				results += "<li><a href=\"http://twitter.com/" + NAME + "/status/" + tweet[0] + "\">" + tweet.slice(2) + "</a></li>";
+			}
 		}
 
 	}
@@ -33,7 +27,6 @@ function grep(query) {
 			q: query
 		},
 		function(data) {
-			console.log("from grep.php: " + data);
 			search(query, data);
 		});
 
