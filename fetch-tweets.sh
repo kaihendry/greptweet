@@ -1,7 +1,6 @@
 #!/bin/sh
 # vim: set ts=4 sw=4
 
-
 umask 002
 api="http://api.twitter.com/1/statuses/user_timeline.xml?"
 

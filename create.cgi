@@ -104,7 +104,8 @@ END
 fi
 
 ln -sf $id.txt tweets.txt
-sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache  > greptweet.appcache
+test -h greptweet.appcache && rm -f greptweet.appcache
+sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache
 
 else
 	rm -rf $oldpwd/u/$id
