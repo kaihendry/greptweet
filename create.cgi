@@ -104,6 +104,7 @@ END
 fi
 
 ln -sf $id.txt tweets.txt # Application cache greptweet.appcache
+ln -sf ../../greptweet.appcache
 
 else
 	rm -rf $oldpwd/u/$id
