@@ -24,7 +24,6 @@ function getCookie( oName ) {
 
 user = getCookie("u");
 if (user) { window.location.replace("/u/" + user); }
-
 </script>
 
 </head>
@@ -54,10 +53,38 @@ if (user) { window.location.replace("/u/" + user); }
 
 </form>
 
-<p>Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook</p>
+<script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  rpp: 4,
+  interval: 30000,
+  width: 250,
+  height: 300,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#4aed05'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: false,
+    live: false,
+    behavior: 'all'
+  }
+}).render().setUser('greptweet').start();
+</script>
 
 <footer>
-<p>Please <a href="https://github.com/kaihendry/Greptweet">contribute on Github</a> :)</p>
+<p>Please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
+<p>Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook</p>
 </footer>
 
 </div>
