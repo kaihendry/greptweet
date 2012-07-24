@@ -5,7 +5,7 @@ test -s "$1" || exit
 test "${1##*.}" = 'txt' || exit
 
 temp=$(mktemp "$1.XXXX")
-trap "rm -f $temp" INT
+trap "rm -f $temp" EXIT
 
 IFS='|'
 while read -r id date text

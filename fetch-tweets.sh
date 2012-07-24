@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # vim: set ts=4 sw=4
 
+if test -d lock
+then
+	echo "Already running"
+	exit 1 # trap goes below in order not to remove the lock
+else
+	mkdir lock
+fi
+
+trap "rm -vrf $temp $temp2 lock; exit" EXIT
+
 umask 002
 api="http://api.twitter.com/1/statuses/user_timeline.xml?"
 
@@ -42,7 +52,6 @@ echo Trying to get $(($twitter_total - $saved))
 temp=$(mktemp "$1.XXXX")
 temp2=$(mktemp "$1.XXXX")
 
-trap "rm -f $temp $temp2; exit" INT EXIT
 
 url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
 

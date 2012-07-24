@@ -28,7 +28,7 @@ else
 	exit
 fi
 
-if test "${parm[2]}" == "o"
+if test "${parm[2]}" == "o" # unused
 then
 	test "${parm[3]}" && old=1
 fi
@@ -45,23 +45,17 @@ cat <<END
 <body>
 <div class="container">
 <div class="content">
-
-<h1 class="alert alert-info">Fetching upto 3200 tweets from $id</h1>
-
-<p class="help-inline">Please be patient. Closing this page prematurely can limit the tweets <a href="https://github.com/kaihendry/Greptweet/blob/master/fetch-tweets.sh">fetch-tweets.sh</a> gets and trigger a locking bug.</p>
-
-<pre>
 END
 
 if test -d u/$id
 then
-	echo Attempting an update
+	echo "<h1 class='alert alert-info'>Attempting to update $id</h1>"
 else
 
 	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} |
 	grep -q "Status: 404 Not Found"
 	then
-		echo "$id does not exist on twitter.com :("
+		echo "<h1 class='alert alert-info'>$id does not exist on twitter.com :(</h1>"
 		exit
 	fi
 
@@ -69,26 +63,10 @@ else
 
 fi
 
-
 cd u/$id
 
 ln -sf ../../index.html || true
 ln -sf ../../grep.php || true
-
-if ! test -f lock
-then
-	touch lock
-	../../fetch-tweets.sh $id
-	rm lock
-else
-	echo Fetching already! Locks are cleared daily
-fi
-
-echo "</pre>"
-
-# Clean up in case it went wrong (e.g. trying to retrieve from an account with protected tweets)
-if test -s "$oldpwd/u/$id/$id.txt"
-then
 
 if echo $id | grep -q -v '_' # Underscores in domain names is a no no
 then
@@ -107,14 +85,6 @@ ln -sf $id.txt tweets.txt
 test -h greptweet.appcache && rm -f greptweet.appcache
 sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache
 
-else
-	rm -rf $oldpwd/u/$id
-	echo '<h1 class="alert alert-error">Sorry the Twitter API is failing. Try again later.</h1>'
-fi
+echo "<pre>"
 
-cat <<END
-</div>
-</div>
-</body>
-</html>
-END
+../../fetch-tweets.sh $id & disown
