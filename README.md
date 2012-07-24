@@ -20,7 +20,6 @@
 # TODO
 
 * Redesign [client to be offline first](http://natalian.org/archives/2012/07/16/navigator.onLine/)
-* Make [create.cgi detach](http://stackoverflow.com/questions/11495515/how-do-i-handle-locks-in-a-cgi-web-application)
 * Nail these [bugs](https://github.com/kaihendry/Greptweet/issues?state=open)
 
 # Shell script feedback on the Web works by disabling Apache's mod_deflate !
