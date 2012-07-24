@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # vim: set ts=4 sw=4
 
 umask 002
@@ -42,7 +42,7 @@ echo Trying to get $(($twitter_total - $saved))
 temp=$(mktemp "$1.XXXX")
 temp2=$(mktemp "$1.XXXX")
 
-trap "rm -f $temp $temp2" INT EXIT
+trap "rm -f $temp $temp2; exit" INT EXIT
 
 url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
 
@@ -64,6 +64,7 @@ ed -s $temp << "EOF_ED2"
 wq
 EOF_ED2
 
+
 grep -iE 'rate|status' $temp2 # show the interesting twitter rate limits
 
 if test "$(xml sel -t -v "count(//statuses/status)" $temp 2>/dev/null)" -eq 0
@@ -82,7 +83,21 @@ then
 	exit
 fi
 
-xml sel -t -m "statuses/status" -n -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" $temp > $temp2
+xml sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" -v "normalize-space(text)" \
+-m "entities/urls/url" -i "expanded_url != ''" -n -o "url " -v "url" -o " " -v "expanded_url" $temp | {
+
+while read -r first rest
+do
+	case $first in
+		"text") echo "$text"; text="$rest" ;;
+		"url")
+			set -- $(echo $rest)
+			text=${text//"$1"/$2} # BASHism #11
+			;;
+	esac
+done
+echo "$text"
+} > $temp2
 
 perl -MHTML::Entities -pe 'decode_entities($_)' < $temp2 > $temp
 sed '/^$/d' < $temp > $temp2
