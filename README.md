@@ -17,9 +17,11 @@
 * Won't work on protected accounts (duh!)
 * No @mentions or DMs from other accounts
 
-# Local or server ?
+# TODO
 
-What is faster? Using `grep.php` or just doing it via Javascript (we could drop PHP then!)?
+* Redesign [client to be offline first](http://natalian.org/archives/2012/07/16/navigator.onLine/)
+* Make [create.cgi detach](http://stackoverflow.com/questions/11495515/how-do-i-handle-locks-in-a-cgi-web-application)
+* Nail these [bugs](https://github.com/kaihendry/Greptweet/issues?state=open)
 
 # Shell script feedback on the Web works by disabling Apache's mod_deflate !
 
