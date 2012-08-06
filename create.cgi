@@ -66,7 +66,6 @@ fi
 cd u/$id
 
 ln -sf ../../index.html || true
-ln -sf ../../grep.php || true
 
 if echo $id | grep -q -v '_' # Underscores in domain names is a no no
 then

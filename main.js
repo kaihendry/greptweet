@@ -1,4 +1,5 @@
 var l = []; // avoid expensive $.get for local searches
+
 function search(query, lines) {
 	var results = "<p class=\"label\">Searched for: " + query + "</p><ol>";
 	for (var i = 0; i < lines.length; i++) {
@@ -21,27 +22,15 @@ function search(query, lines) {
 
 function grep(query) {
 
-	if (navigator.onLine) {
-
-		$.getJSON("/u/" + NAME + "/grep.php?jsoncallback=?", {
-			q: query
-		},
-		function(data) {
-			search(query, data);
-		});
-
+	if (l.length > 0) {
+		search(query, l);
 	} else {
-
-		if (l.length > 0) {
+		$.get('tweets.txt', function(data) {
+			l = data.split("\n");
 			search(query, l);
-		} else {
-			$.get('tweets.txt', function(data) {
-				l = data.split("\n");
-				search(query, l);
-			});
-		}
-
+		});
 	}
+
 }
 
 $(document).ready(function() {
