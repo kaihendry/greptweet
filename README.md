@@ -17,9 +17,18 @@
 * Won't work on protected accounts (duh!)
 * No @mentions or DMs from other accounts
 
+# API
+
+Fetch your tweets manually by accessing the URL:
+
+	http://greptweet.com/f/TWITTER_USERNAME
+
+Last 4 tweets:
+
+	curl -s http://greptweet/u/webconverger/tweets.txt | head -n4
+
 # TODO
 
-* Redesign [client to be offline first](http://natalian.org/archives/2012/07/16/navigator.onLine/)
 * Nail these [bugs](https://github.com/kaihendry/Greptweet/issues?state=open)
 
 # Shell script feedback on the Web works by disabling Apache's mod_deflate !

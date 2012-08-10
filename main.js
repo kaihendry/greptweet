@@ -54,7 +54,7 @@ $(document).ready(function() {
 	$("input[type=text]").focus();
 
 	footer = '<p><a href="' + NAME + '.txt" class="btn primary"><i class="icon-download"></i> Download</a>';
-	footer += '<a href="' + "/create.cgi?id=" + NAME + '" class="btn"><i class="icon-refresh"></i> Update</a></p>';
+	footer += '<a href="' + "/f/" + NAME + '" class="btn"><i class="icon-refresh"></i> Update</a></p>';
 	$("#source").html(footer);
 	document.title = "Greptweet " + NAME;
 
