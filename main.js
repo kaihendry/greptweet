@@ -43,7 +43,7 @@ function grep(query) {
 		},
 		function(data) {
 			search(query, data);
-		}).error(function(x) { console.log("AJAX JSON-P error: " + x); });
+		}).error(function(x) { console.log("AJAX JSON-P error: ", x); });
 
 	}
 }
