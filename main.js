@@ -24,7 +24,7 @@ function grep(query) {
 	if (typeof applicationCache !== 'undefined' && applicationCache.status == 1) {
 
 		// If we have a cache, lets do this locally
-		console.log("Using  applicationCache");
+		console.log("Using applicationCache");
 		if (l.length > 0) {
 			search(query, l);
 		} else {
@@ -37,13 +37,13 @@ function grep(query) {
 	} else {
 
 		// Client doesn't support appcache or it's not in sync, so lets search on the server
-		console.log("Using  grep.php");
+		console.log("Using grep.php");
 		$.getJSON("/u/" + NAME + "/grep.php?jsoncallback=?", {
 			q: query
 		},
 		function(data) {
 			search(query, data);
-		});
+		}).error(function(x) { console.log("AJAX JSON-P error: " + x); });
 
 	}
 }
@@ -55,8 +55,7 @@ $(document).ready(function() {
 
 	$("input[type=search]").change(function() {
 		query = this.value;
-		// TODO: APPCACHE BUG
-		// window.location.search = query; // Triggers Reload the page to get source for: http://greptweet/u/kaihendry/?food
+		window.location.search = query; // Triggers Reload the page to get source for: http://greptweet/u/kaihendry/?food
 		grep(query);
 	});
 

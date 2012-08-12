@@ -8,3 +8,7 @@ tweets.txt
 /bootstrap/docs/assets/img/glyphicons-halflings.png
 /style.css
 /jquery-1.7.2.min.js
+NETWORK:
+/f/*
+FALLBACK:
+index.html
