@@ -55,7 +55,8 @@ $(document).ready(function() {
 
 	$("input[type=search]").change(function() {
 		query = this.value;
-		window.location.search = query; // Triggers Reload the page to get source for: http://greptweet/u/kaihendry/?food
+		// Still a bug dispite FALLBACK in Appcache whereby Safari on Iphone gives an error message
+		//window.location.search = query; // Triggers Reload the page to get source for: http://greptweet/u/kaihendry/?food
 		grep(query);
 	});
 
