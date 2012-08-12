@@ -1,5 +1,4 @@
 var l = []; // avoid expensive $.get for local searches
-
 function search(query, lines) {
 	var results = "<p class=\"label\">Searched for: " + query + "</p><ol>";
 	for (var i = 0; i < lines.length; i++) {
@@ -22,15 +21,31 @@ function search(query, lines) {
 
 function grep(query) {
 
-	if (l.length > 0) {
-		search(query, l);
-	} else {
-		$.get('tweets.txt', function(data) {
-			l = data.split("\n");
-			search(query, l);
-		});
-	}
+	if (typeof applicationCache !== 'undefined' && applicationCache.status == 1) {
 
+		// If we have a cache, lets do this locally
+		console.log("Using  applicationCache");
+		if (l.length > 0) {
+			search(query, l);
+		} else {
+			$.get('tweets.txt', function(data) {
+				l = data.split("\n");
+				search(query, l);
+			});
+		}
+
+	} else {
+
+		// Client doesn't support appcache or it's not in sync, so lets search on the server
+		console.log("Using  grep.php");
+		$.getJSON("/u/" + NAME + "/grep.php?jsoncallback=?", {
+			q: query
+		},
+		function(data) {
+			search(query, data);
+		});
+
+	}
 }
 
 $(document).ready(function() {
