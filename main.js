@@ -55,13 +55,15 @@ $(document).ready(function() {
 
 	$("input[type=search]").change(function() {
 		query = this.value;
-		// Still a bug dispite FALLBACK in Appcache whereby Safari on Iphone gives an error message
-		//window.location.search = query; // Triggers Reload the page to get source for: http://greptweet/u/kaihendry/?food
+		window.location.hash = query;
 		grep(query);
 	});
 
-	if (window.location.search) {
-		searchquery = window.decodeURIComponent(window.location.search.substr(1));
+	if (window.location.search || window.location.hash) {
+		if (!window.location.hash) {
+			window.location.hash = window.location.search.substr(1);
+		}
+		searchquery = window.decodeURIComponent(window.location.hash.substr(1));
 		$("input[type=search]").val(searchquery);
 		grep(searchquery);
 	}
