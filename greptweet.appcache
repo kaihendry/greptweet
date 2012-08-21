@@ -1,7 +1,6 @@
 CACHE MANIFEST
 # TIMESTAMP
 CACHE:
-index.html
 tweets.txt
 /main.js
 /bootstrap/docs/assets/css/bootstrap.css
@@ -12,5 +11,3 @@ NETWORK:
 /f/
 grep.php
 /create.cgi
-FALLBACK:
-index.html
