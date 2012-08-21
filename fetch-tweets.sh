@@ -21,7 +21,7 @@ then
 fi
 
 command -v xmlstarlet >/dev/null && xml() { xmlstarlet "$@"; }
-type xml >/dev/null || exit
+type xml >/dev/null || ( echo Please install http://xmlstar.sourceforge.net/; exit 1 )
 
 twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
 xml sel -t -m "//users/user/statuses_count" -v .)
@@ -51,7 +51,6 @@ echo Trying to get $(($twitter_total - $saved))
 
 temp=$(mktemp "$1.XXXX")
 temp2=$(mktemp "$1.XXXX")
-
 
 url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
 
