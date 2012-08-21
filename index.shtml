@@ -87,6 +87,8 @@ new TWTR.Widget({
 <footer>
 <p>Please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
 <p>Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook</p>
+<p>Active accounts: <!--#include virtual="active-users.txt" --></p>
+<p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<!--#include virtual="version.txt" -->><!--#include virtual="version.txt" --></a></p>
 </footer>
 
 </div>
