@@ -56,7 +56,6 @@ $(document).ready(function() {
 	$("input[type=search]").change(function() {
 		query = this.value;
 		window.location.hash = query;
-		grep(query);
 	});
 
 	if (window.location.search || window.location.hash) {
@@ -82,3 +81,9 @@ $(document).ready(function() {
 
 });
 
+$(window).bind('hashchange', function() {
+		console.log("Hash change: ", window.location.hash);
+		searchquery = window.location.hash.substr(1);
+		$("input[type=search]").val(searchquery);
+		grep(searchquery);
+});
