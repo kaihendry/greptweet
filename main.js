@@ -72,7 +72,7 @@ $(document).ready(function() {
 	footer = '<p><a href="' + NAME + '.txt" class="btn primary"><i class="icon-download"></i> Download</a>';
 	footer += '<a href="' + "/f/" + NAME + '" class="btn"><i class="icon-refresh"></i> Update</a></p>';
 	$("#source").html(footer);
-	document.title = "Greptweet " + NAME;
+	document.title = NAME;
 
 	document.cookie = 'u=' + NAME + '; expires=Thu, 2 Aug 2021 20:47:11 UTC; path=/';
 	$("#home").click(function() {
