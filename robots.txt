@@ -1,0 +1,3 @@
+user-agent: *
+disallow: /create.cgi
+disallow: /u/*
