@@ -21,7 +21,7 @@ then
 fi
 
 command -v xmlstarlet >/dev/null && xml() { xmlstarlet "$@"; }
-type xml >/dev/null || ( echo Please install http://xmlstar.sourceforge.net/; exit 1 )
+if ! type xml >/dev/null; then echo Please install http://xmlstar.sourceforge.net/; exit 1; fi
 
 twitter_total=$(curl -s "http://api.twitter.com/1/users/lookup.xml?screen_name=$1" |
 xml sel -t -m "//users/user/statuses_count" -v .)
