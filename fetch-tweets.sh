@@ -52,7 +52,7 @@ echo Trying to get $(($twitter_total - $saved))
 temp=$(mktemp "$1.XXXX")
 temp2=$(mktemp "$1.XXXX")
 
-url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=true&trim_user=1&include_entities=1"
+url="${api}screen_name=${1}&count=200&page=${page}${since}&include_rts=1&trim_user=0&include_entities=1"
 
 echo "curl -s \"$url\""
 curl -si "$url" | tee $temp2 > $temp
