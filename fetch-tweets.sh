@@ -91,7 +91,7 @@ then
 	exit
 fi
 
-xmlstarlet sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" \
+xml sel -t -m "statuses/status" -n -o "text " -v "id" -o "|" -v "created_at" -o "|" \
   -m ".|retweeted_status" -i "(name() = 'status' and not(retweeted_status)) or name() = 'retweeted_status'" \
   -i "name() = 'retweeted_status'" -o "RT @" -v "user/screen_name" -o ": " -b \
   -v "normalize-space(text)" \
