@@ -2,3 +2,4 @@ DirectoryIndex index.shtml index.html
 AddType text/cache-manifest .appcache
 RewriteEngine on
 RewriteRule ^f/(.*)$ /create.cgi?id=$1               [L,QSA]
+CheckCaseOnly on
