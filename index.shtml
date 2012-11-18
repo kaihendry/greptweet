@@ -46,7 +46,7 @@ if (user) { window.location.replace("/u/" + user); }
 <div class="clearfix">
 <label for="username">Twitter username</label>
 <div class="input">
-<input class="xlarge" id="username" type="text" name="id" size="16" required placeholder="kaihendry">
+<input class="xlarge" id="username" type="text" name="id" size="16" autocomplete="off" required placeholder="kaihendry">
 </div>
 </div>
 
@@ -55,12 +55,10 @@ if (user) { window.location.replace("/u/" + user); }
 
 </form>
 
-<a class="twitter-timeline"  href="https://twitter.com/greptweet" data-widget-id="262428256576339968">Tweets by @greptweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
 <footer>
-<p>Please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
-<p>Try <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook</p>
+<p>Like greptweet? Please let <a href="http://hendry.iki.fi">me</a> know ! I would love to get contributions from graphic designers to jazz it up here.</p>
+<p>Super-geeks please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
+<p>Try my bff <a href="http://jamiek.it/">Jamie Kitson</a>'s <a href="http://grepbook.co.uk/">Grepbook</a> for grepping Facebook.</p>
 <p>Active accounts: <!--#include virtual="active-users.txt" --></p>
 <p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<!--#include virtual="version.txt" -->><!--#include virtual="version.txt" --></a></p>
 </footer>
