@@ -53,6 +53,11 @@ $(document).ready(function() {
 	NAME = window.location.pathname.split('/')[2];
 	$("#name").html(NAME);
 
+	appletouchicon = document.createElement('link');
+	appletouchicon.setAttribute("rel", "apple-touch-icon");
+	appletouchicon.setAttribute("href", "https://api.twitter.com/1/users/profile_image?screen_name=" + NAME + "&size=bigger");
+	document.getElementsByTagName("head")[0].appendChild(appletouchicon);
+
 	$("input[type=search]").change(function() {
 		query = this.value;
 		window.location.hash = query;
