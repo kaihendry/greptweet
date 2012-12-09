@@ -11,7 +11,7 @@ function search(query, lines) {
 			}
 		} else {
 			if (tweet[2] !== undefined && tweet[2].match(re)) {
-				results += "<li><a href=\"http://twitter.com/" + NAME + "/status/" + tweet[0] + "\">" + tweet.slice(2) + "</a></li>";
+				results += "<li><a href=\"http://twitter.com/" + NAME + "/status/" + tweet[0] + "\">" + tweet.slice(2) + "</a>&nbsp;&dash;<small><time>" + tweet[1] + "</time></small></li>";
 			}
 		}
 
