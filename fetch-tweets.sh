@@ -9,6 +9,9 @@ else
 	mkdir lock
 fi
 
+temp=$(mktemp "$1.XXXX")
+temp2=$(mktemp "$1.XXXX")
+
 trap "rm -vrf $temp $temp2 lock" EXIT
 
 umask 002
@@ -29,17 +32,10 @@ then
 	test "$2" && since='&max_id='$(tail -n1 $1.txt | cut -d'|' -f1) # use max_id to get older tweets
 fi
 
-echo T:"$twitter_total" S:"$saved"
-while test "$twitter_total" -gt "$saved" # Start of the important loop
+while urlargs="screen_name=${1}&count=200&page=${page}${since}&include_rts=1&trim_user=0&include_entities=1"; echo $urlargs; ./oauth.php $urlargs | json -d '|' -a id created_at text > $temp2; test $(wc -l < $temp2) -gt 0;
 do
 
-url="screen_name=${1}&count=200&page=${page}${since}&include_rts=1&trim_user=0&include_entities=1"
-
-
-while curl -f -s ./oauth.php $url | json -d '|' -a id created_at text > temp2; test $(wc -l < temp2) -gt 0;
-do
-
-cat temp2
+#cat temp2
 
 if test -f $1.txt
 then
@@ -54,18 +50,12 @@ sort -r -n -u $temp $temp2 > "$1.txt"
 rm -f $temp $temp2
 
 after=$(wc -l < "$1.txt")
-echo Before: $before After: $after
 
-if test "$before" -eq "$after"
-then
-	echo Unable to retrieve anything new. Approximately $(( $twitter_total - $after)) missing tweets
-	exit
-fi
+echo Before: $before After: $after
 
 page=$(($page + 1))
 saved=$(wc -l < "$1.txt")
-echo $saved
 
 done
 
-echo $1 saved $saved tweets of "$twitter_total": You are up-to-date!
+echo $1 saved $saved tweets

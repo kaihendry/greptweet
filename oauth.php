@@ -1,5 +1,10 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
+
+if (empty($argv[1])) { exit(1); }
+
+$urlargs = $argv[1];
+parse_str($urlargs, $merge_to_oauth);
 
 function buildBaseString($baseURI, $method, $params) {
     $r = array();
@@ -29,10 +34,9 @@ $oauth = array( 'oauth_consumer_key' => $consumer_key,
                 'oauth_signature_method' => 'HMAC-SHA1',
                 'oauth_token' => $oauth_access_token,
                 'oauth_timestamp' => time(),
-				'screen_name' => 'kaihendry',
-				'count' => 200,
-				'page' => $argv[1],
                 'oauth_version' => '1.0');
+
+$oauth = array_merge($oauth, $merge_to_oauth);
 
 $base_info = buildBaseString($url, 'GET', $oauth);
 $composite_key = rawurlencode($consumer_secret) . '&' . rawurlencode($oauth_access_token_secret);
@@ -44,7 +48,7 @@ $header = array(buildAuthorizationHeader($oauth), 'Expect:');
 $options = array( CURLOPT_HTTPHEADER => $header,
                   //CURLOPT_POSTFIELDS => $postfields,
                   CURLOPT_HEADER => false,
-				  CURLOPT_URL => $url . '?screen_name=kaihendry&count=200&page=' . $argv[1],
+				  CURLOPT_URL => $url . '?'. $urlargs,
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_SSL_VERIFYPEER => false);
 
