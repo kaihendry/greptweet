@@ -24,7 +24,7 @@ function grep(query) {
 	if (typeof applicationCache !== 'undefined' && applicationCache.status == 1) {
 
 		// If we have a cache, lets do this locally
-		console.log("Using applicationCache");
+		// console.log("Using applicationCache");
 		if (l.length > 0) {
 			search(query, l);
 		} else {
@@ -37,7 +37,7 @@ function grep(query) {
 	} else {
 
 		// Client doesn't support appcache or it's not in sync, so lets search on the server
-		console.log("Using grep.php");
+		// console.log("Using grep.php");
 		$.getJSON("/u/" + NAME + "/grep.php?jsoncallback=?", {
 			q: query
 		},
@@ -87,7 +87,7 @@ $(document).ready(function() {
 });
 
 $(window).bind('hashchange', function() {
-		console.log("Hash change: ", window.location.hash);
+		// console.log("Hash change: ", window.location.hash);
 		searchquery = window.location.hash.substr(1);
 		$("input[type=search]").val(searchquery);
 		grep(searchquery);
