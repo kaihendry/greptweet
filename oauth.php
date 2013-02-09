@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 function buildBaseString($baseURI, $method, $params) {
@@ -30,7 +31,7 @@ $oauth = array( 'oauth_consumer_key' => $consumer_key,
                 'oauth_timestamp' => time(),
 				'screen_name' => 'kaihendry',
 				'count' => 200,
-				'max_id' => 292551485714227200,
+				'page' => $argv[1],
                 'oauth_version' => '1.0');
 
 $base_info = buildBaseString($url, 'GET', $oauth);
@@ -43,7 +44,7 @@ $header = array(buildAuthorizationHeader($oauth), 'Expect:');
 $options = array( CURLOPT_HTTPHEADER => $header,
                   //CURLOPT_POSTFIELDS => $postfields,
                   CURLOPT_HEADER => false,
-				  CURLOPT_URL => $url . '?screen_name=kaihendry&count=200&max_id=292551485714227200',
+				  CURLOPT_URL => $url . '?screen_name=kaihendry&count=200&page=' . $argv[1],
                   CURLOPT_RETURNTRANSFER => true,
                   CURLOPT_SSL_VERIFYPEER => false);
 
@@ -51,6 +52,9 @@ $feed = curl_init();
 curl_setopt_array($feed, $options);
 $json = curl_exec($feed);
 curl_close($feed);
+
+// No results returned, Twitter API issue
+if (strlen($json) == 2) { exit(1); };
 
 echo $json;
 // $twitter_data = json_decode($json);
