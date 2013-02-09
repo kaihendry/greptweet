@@ -45,17 +45,21 @@ $oauth['oauth_signature'] = $oauth_signature;
 
 // Make Requests
 $header = array(buildAuthorizationHeader($oauth), 'Expect:');
-$options = array( CURLOPT_HTTPHEADER => $header,
-                  //CURLOPT_POSTFIELDS => $postfields,
-                  CURLOPT_HEADER => false,
-				  CURLOPT_URL => $url . '?'. $urlargs,
-                  CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_SSL_VERIFYPEER => false);
+
 
 $feed = curl_init();
+$options = array( CURLOPT_HTTPHEADER => $header,
+				  CURLOPT_URL => $url . '?'. $urlargs,
+				  CURLOPT_HEADER => true,
+				  CURLOPT_RETURNTRANSFER => true,
+				  CURLOPT_SSL_VERIFYPEER => false);
+
 curl_setopt_array($feed, $options);
-$json = curl_exec($feed);
+$content = curl_exec($feed);
+list($header, $json) = explode("\r\n\r\n", $content, 2);
 curl_close($feed);
+
+file_put_contents('php://stderr', $header . "\n\n");
 
 // No results returned, Twitter API issue
 if (strlen($json) == 2) { exit(1); };
