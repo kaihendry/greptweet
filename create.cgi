@@ -39,7 +39,7 @@ cat <<END
  <head>
   <meta charset="utf-8" />
   <title>Fetching tweets of $id</title>
-  <link rel="stylesheet" href="/bootstrap/docs/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
@@ -70,8 +70,6 @@ ln -sf ../../grep.php || true
 
 if echo $id | grep -q -v '_' # Underscores in domain names is a no no
 then
-	mkdir /srv/www/$id.greptweet.com 2> /dev/null || true
-	echo Redirect / http://greptweet.com/u/$id > /srv/www/$id.greptweet.com/.htaccess
 cat <<END
 <a href="http://$id.greptweet.com"><h1 class="alert alert-success">Goto http://$id.greptweet.com to grep!</h1></a>
 END
