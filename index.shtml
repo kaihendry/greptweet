@@ -56,7 +56,6 @@ if (user) { window.location.replace("/u/" + user); }
 </form>
 
 <footer>
-<p>Twitter API is not working due to <a href="https://dev.twitter.com/blog/api-v1-is-retired">v1 retirement</a>. :( I'm reluctantly trying to use the <a href="https://github.com/kaihendry/Greptweet/tree/1.1">new way more complex 1.1 twitter API working</a>.</p>
 <p>Super-geeks please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
 <p>Active accounts: <!--#include virtual="active-users.txt" --></p>
 <p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<!--#include virtual="version.txt" -->><!--#include virtual="version.txt" --></a></p>
