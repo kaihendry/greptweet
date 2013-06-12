@@ -3,7 +3,6 @@
 <a href="http://www.flickr.com/photos/hendry/7577182774/" title="Offline Greptweet on Chrome IOS by Kai Hendry, on Flickr"><img src="http://farm8.staticflickr.com/7133/7577182774_d5b654ea69_m.jpg" width="160" height="240" alt="Offline Greptweet on Chrome IOS"></a>
 
 * Uses [HTML offline feature](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html)
-* Authentication free, using <http://dev.twitter.com/doc/get/statuses/user_timeline>
 * Aims to [suck less](http://suckless.org) by keeping lines of code low
 * Encourage folks to use `fetch-tweets.sh` themselves and get into shell ;)
 * Dependencies: curl, libhtml-parser-perl (to decode HTML entities), xmlstarlet, coreutils, PHP
