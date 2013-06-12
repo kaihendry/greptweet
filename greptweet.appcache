@@ -3,8 +3,8 @@ CACHE MANIFEST
 CACHE:
 tweets.txt
 /main.js
-/bootstrap/docs/assets/css/bootstrap.css
-/bootstrap/docs/assets/img/glyphicons-halflings.png
+/bootstrap/css/bootstrap.min.css
+/bootstrap/img/glyphicons-halflings.png
 /style.css
 /jquery.js
 NETWORK:
