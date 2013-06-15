@@ -2,7 +2,6 @@
 <?php
 $json_string = file_get_contents("php://stdin");
 $foo = json_decode($json_string);
-echo count($foo);
 for ($i=0; $i<count($foo); $i++){
     echo $foo[$i]->id_str . "|";
     echo $foo[$i]->created_at . "|";
