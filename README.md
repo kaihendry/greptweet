@@ -4,7 +4,6 @@
 
 * Uses [HTML offline feature](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html)
 * Aims to [suck less](http://suckless.org) by keeping lines of code low
-* Encourage folks to use `fetch-tweets.sh` themselves and get into shell ;)
 * Dependencies: PHP, curl
 * Look and feel by <http://twitter.github.com/bootstrap>
 * **Please** review and comment on the code!
@@ -12,7 +11,7 @@
 # Known limitations
 
 * API only allows 3200 tweets to be downloaded this way :(
-* 300 API limit using [Application only Auth](https://dev.twitter.com/docs/auth/application-only-auth) bearer token
+* 300 API limit using a [Application only Auth](https://dev.twitter.com/docs/auth/application-only-auth) bearer token (which doesn't seem to expire...)
 * Won't work on protected accounts (duh!)
 * No @mentions or DMs from other accounts
 
@@ -24,4 +23,4 @@ Fetch your tweets manually by accessing the URL:
 
 Last 4 tweets:
 
-	curl -s http://greptweet/u/webconverger/tweets.txt | head -n4
+	curl -s http://greptweet.com/u/webconverger/tweets.txt | head -n4
