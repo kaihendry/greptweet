@@ -59,7 +59,7 @@ if (user) { window.location.replace("/u/" + user); }
 <p>Super-geeks please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
 <p>Active accounts: <!--#include virtual="active-users.txt" --></p>
 <p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<!--#include virtual="version.txt" -->><!--#include virtual="version.txt" --></a></p>
-<p>Backup: <code>rsync -artzv  --include "*/" --include "*.txt" --exclude "*" --exclude "tweets.txt" greptweet.com::greptweet .</code></p>
+<p>Backup: <code>rsync -rz --include "*/" --include "*.txt" --exclude "*" greptweet.com::greptweet .</code></p>
 </footer>
 
 </div>
