@@ -2,4 +2,6 @@ DirectoryIndex index.shtml index.html
 AddType text/cache-manifest .appcache
 RewriteEngine on
 RewriteRule ^f/(.*)$ /create.cgi?id=$1               [L,QSA]
-CheckCaseOnly on
+<IfModule mod_speling.c>
+	CheckCaseOnly On
+</IfModule>

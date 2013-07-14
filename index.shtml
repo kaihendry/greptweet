@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <title>GrepTweet</title>
-<meta content="width=device-width, initial-scale=1,maximum-scale=1.0;" name=viewport>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico">
+<meta name="description" content="Download and search your tweets - no password login required!" />
 <link rel="apple-touch-icon-precomposed" href="http://a0.twimg.com/profile_images/1206037111/greptweet.png">
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css">
 <script>
 function getCookie( oName ) {
 	var splitcookie = document.cookie.split( "; " ), x, cookiepair;

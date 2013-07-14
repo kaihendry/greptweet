@@ -27,7 +27,7 @@ function buildAuthorizationHeader($oauth) {
 $url = "https://api.twitter.com/1.1/statuses/user_timeline.json";
 
 // Get $oauth_access_token, $oauth_access_token_secret, $consumer_key, $consumer_secret
-include("secret.php");
+require("secret.php");
 
 $oauth = array( 'oauth_consumer_key' => $consumer_key,
                 'oauth_nonce' => time(),
