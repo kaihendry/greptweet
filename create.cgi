@@ -41,7 +41,6 @@ cat <<END
   <meta charset="utf-8" />
   <title>Fetching tweets of $id</title>
   <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="/style.css">
 </head>
 <body>
 <div class="container">
