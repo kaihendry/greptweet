@@ -1,6 +1,7 @@
 #!/bin/bash -e
 # vim: set ts=4 sw=4
 # apache_setenv('no-gzip', '1');
+# TODO re-implement in PHP
 exec 2>&1
 cat <<END
 Cache-Control: no-cache
@@ -52,6 +53,7 @@ then
 	echo "<h1 class='alert alert-info'>Attempting to update $id</h1>"
 else
 
+	# TODO: This API is deprecated!
 	if curl -sI http://api.twitter.com/1/users/lookup.xml?screen_name=${id} |
 	grep -q "Status: 404 Not Found"
 	then

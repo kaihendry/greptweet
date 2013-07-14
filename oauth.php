@@ -30,7 +30,7 @@ function fetch($bearer_token, $query){
 }
 
 // $bearer_token = get_bearer_token(); // bearer token seems to last
-require("secret.php");
+require("secret.php"); // contains $bearer_token
 print fetch($bearer_token, $urlargs); //  search for the work 'test'
 //invalidate_bearer_token($bearer_token); // invalidate the token
 ?>
