@@ -4,25 +4,12 @@
 if (empty($argv[1])) { exit(1); }
 $urlargs = $argv[1];
 
-
-/**
-* 	Oauth.php
-*
-*	Created by Jon Hurlock on 2013-03-20.
-* 	
-*	Jon Hurlock's Twitter Application-only Authentication App by Jon Hurlock (@jonhurlock)
-*	is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
-*	Permissions beyond the scope of this license may be available at http://www.jonhurlock.com/.
-*/
-
-
 /*
 *	Get the Bearer Token, this is an implementation of steps 1&2
 *	from https://dev.twitter.com/docs/auth/application-only-auth
 */
 function get_bearer_token(){
 	require("secret.php");
-	echo $consumer_key;
 	// Step 1
 	// step 1.1 - url encode the consumer_key and consumer_secret in accordance with RFC 1738
 	$encoded_consumer_key = urlencode($consumer_key);
@@ -33,14 +20,14 @@ function get_bearer_token(){
 	$base64_encoded_bearer_token = base64_encode($bearer_token);
 	// step 2
 	$url = "https://api.twitter.com/oauth2/token"; // url to send data to for authentication
-	$headers = array( 
-		"POST /oauth2/token HTTP/1.1", 
-		"Host: api.twitter.com", 
+	$headers = array(
+		"POST /oauth2/token HTTP/1.1",
+		"Host: api.twitter.com",
 		"User-Agent: jonhurlock Twitter Application-only OAuth App v.1",
 		"Authorization: Basic ".$base64_encoded_bearer_token."",
-		"Content-Type: application/x-www-form-urlencoded;charset=UTF-8", 
+		"Content-Type: application/x-www-form-urlencoded;charset=UTF-8",
 		"Content-Length: 29"
-	); 
+	);
 
 	$ch = curl_init();  // setup a curl
 	curl_setopt($ch, CURLOPT_URL,$url);  // set url to send to
@@ -79,16 +66,16 @@ function invalidate_bearer_token($bearer_token){
 	$base64_encoded_consumer_token = base64_encode($consumer_token);
 	// step 2
 	$url = "https://api.twitter.com/oauth2/invalidate_token"; // url to send data to for authentication
-	$headers = array( 
-		"POST /oauth2/invalidate_token HTTP/1.1", 
-		"Host: api.twitter.com", 
+	$headers = array(
+		"POST /oauth2/invalidate_token HTTP/1.1",
+		"Host: api.twitter.com",
 		"User-Agent: jonhurlock Twitter Application-only OAuth App v.1",
 		"Authorization: Basic ".$base64_encoded_consumer_token."",
-		"Accept: */*", 
-		"Content-Type: application/x-www-form-urlencoded", 
+		"Accept: */*",
+		"Content-Type: application/x-www-form-urlencoded",
 		"Content-Length: ".(strlen($bearer_token)+13).""
-	); 
-    
+	);
+
 	$ch = curl_init();  // setup a curl
 	curl_setopt($ch, CURLOPT_URL,$url);  // set url to send to
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); // set custom headers
@@ -102,35 +89,35 @@ function invalidate_bearer_token($bearer_token){
 	return $retrievedhtml;
 }
 
-/**
-* Search
-* Basic Search of the Search API
-* Based on https://dev.twitter.com/docs/api/1.1/get/search/tweets
-*/
-function search_for_a_term($bearer_token, $query, $result_type='mixed', $count='15'){
-	$url = "https://api.twitter.com/1.1/statuses/user_timeline.json";
-	$q = urlencode(trim($query)); // query term
-	$formed_url ='?q='.$q; // fully formed url
-	if($result_type!='mixed'){$formed_url = $formed_url.'&result_type='.$result_type;} // result type - mixed(default), recent, popular
-	if($count!='15'){$formed_url = $formed_url.'&count='.$count;} // results per page - defaulted to 15
-	$formed_url = $formed_url.'&include_entities=true'; // makes sure the entities are included, note @mentions are not included see documentation
-	$headers = array( 
-		"GET /1.1/search/tweets.json".$formed_url." HTTP/1.1", 
-		"Host: api.twitter.com", 
+function fetch($bearer_token, $query){
+	$url = "https://api.twitter.com/1.1/statuses/user_timeline.json?";
+	$headers = array(
+		"GET /1.1/statuses/user_timeline.json?".$query." HTTP/1.1",
+		"Host: api.twitter.com",
 		"User-Agent: jonhurlock Twitter Application-only OAuth App v.1",
 		"Authorization: Bearer ".$bearer_token."",
 	);
 	$ch = curl_init();  // setup a curl
-	curl_setopt($ch, CURLOPT_URL,$url.$formed_url);  // set url to send to
+	curl_setopt($ch, CURLOPT_URL, $url.$query);  // set url to send to
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers); // set custom headers
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return output
-	$retrievedhtml = curl_exec ($ch); // execute the curl
-	curl_close($ch); // close the curl
-	return $retrievedhtml;
+	curl_setopt($ch, CURLOPT_HEADER, true);
+	$content = curl_exec($ch);
+	list($header, $json) = explode("\r\n\r\n", $content, 2);
+	curl_close($ch);
+
+	file_put_contents('php://stderr', $header . "\n\n");
+
+	// No results returned, Twitter API issue
+	if (strlen($json) == 2) { exit(1); };
+
+	return $json;
+
 }
 
-// lets run a search.
-$bearer_token = get_bearer_token(); // get the bearer token
-print search_for_a_term($bearer_token, "test"); //  search for the work 'test'
+// $bearer_token = get_bearer_token(); // bearer token seems to last
+require("secret.php");
+echo "bearer token: " . $bearer_token . "\n";
+print fetch($bearer_token, $urlargs); //  search for the work 'test'
 //invalidate_bearer_token($bearer_token); // invalidate the token
 ?>
