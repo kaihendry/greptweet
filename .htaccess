@@ -5,3 +5,8 @@ RewriteRule ^f/(.*)$ /create.cgi?id=$1               [L,QSA]
 <IfModule mod_speling.c>
 	CheckCaseOnly On
 </IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 week"
+</IfModule>
