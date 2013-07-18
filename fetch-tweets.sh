@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # vim: set ts=4 sw=4
+exec 2>&1
 
 if test -d lock
 then
