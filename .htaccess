@@ -10,3 +10,5 @@ RewriteRule ^f/(.*)$ /create.cgi?id=$1               [L,QSA]
     ExpiresActive On
     ExpiresByType text/css "access plus 1 week"
 </IfModule>
+
+SetEnvIf Request_URI ^/create.cgi(.*) no-gzip
