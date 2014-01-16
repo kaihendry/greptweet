@@ -24,3 +24,19 @@ Fetch your tweets manually by accessing the URL:
 Last 4 tweets:
 
 	curl -s http://greptweet.com/u/webconverger/tweets.txt | head -n4
+
+# Getting a Bearer Token
+
+When you clone and attempt to run this project you will notice that you are missing a `secrets.php` 
+file, this file contains one setting `$bearer`. To 
+[create a bearer token](https://dev.twitter.com/docs/auth/application-only-auth):
+
+1. [Create a new Twitter app.](https://dev.twitter.com/apps/new)
+1. Base64 encode your key and secret separated by a colon, eg: key:secret => a2V5OnNlY3JldA==
+1. Add the result to the Authorization header:
+
+    wget --post-data=grant_type=client_credentials \
+        --header='Authorization: Basic **BASE64HERE**' \
+        --header='Content-Type: application/x-www-form-urlencoded;charset=UTF-8' \
+        https://api.twitter.com/oauth2/token
+
