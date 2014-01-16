@@ -34,9 +34,9 @@ file, this file contains one setting `$bearer`. To
 1. [Create a new Twitter app.](https://dev.twitter.com/apps/new)
 1. Base64 encode your key and secret separated by a colon, eg: key:secret => a2V5OnNlY3JldA==
 1. Add the result to the Authorization header:
-
+<pre>
     wget --post-data=grant_type=client_credentials \
         --header='Authorization: Basic **BASE64HERE**' \
         --header='Content-Type: application/x-www-form-urlencoded;charset=UTF-8' \
         https://api.twitter.com/oauth2/token
-
+</pre>
