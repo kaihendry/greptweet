@@ -5,7 +5,7 @@ $foo = json_decode($json_string);
 for ($i=0; $i<count($foo); $i++){
     echo $foo[$i]->id_str . "|";
     echo $foo[$i]->created_at . "|";
-    $tweet = $foo[$i]->text;
+    $tweet = str_replace("\n", " ", $foo[$i]->text);
 	if (!empty($foo[$i]->entities->urls)) {
 		foreach($foo[$i]->entities->urls as $u) {
 		//print_r($u->url);
