@@ -1,6 +1,6 @@
 # <http://greptweet.com>
 
-<a href="http://www.flickr.com/photos/hendry/9284645632/" title="Greptweet by Kai Hendry, on Flickr"><img src="http://farm4.staticflickr.com/3790/9284645632_6e5fc45fd9_n.jpg" width="180" height="320" alt="Greptweet"></a>
+<a href="http://www.flickr.com/photos/hendry/7577182774/" title="Offline Greptweet on Chrome IOS by Kai Hendry, on Flickr"><img src="http://farm8.staticflickr.com/7133/7577182774_d5b654ea69_n.jpg" width="213" height="320" alt="Offline Greptweet on Chrome IOS"></a>
 
 * Uses [HTML offline feature](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html)
 * Aims to [suck less](http://suckless.org) by keeping lines of code low
