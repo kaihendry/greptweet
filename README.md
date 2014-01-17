@@ -27,16 +27,24 @@ Last 4 tweets:
 
 # Getting a Bearer Token
 
-When you clone and attempt to run this project you will notice that you are missing a `secrets.php` 
-file, this file contains one setting `$bearer`. To 
-[create a bearer token](https://dev.twitter.com/docs/auth/application-only-auth):
+When you clone and attempt to run this project you will notice that you are
+missing a `secret.php` file, this file contains one setting `$bearer_token`.
+To [create a bearer
+token](https://dev.twitter.com/docs/auth/application-only-auth):
 
-1. [Create a new Twitter app.](https://dev.twitter.com/apps/new)
-1. Base64 encode your key and secret separated by a colon, eg: key:secret => a2V5OnNlY3JldA==
-1. Add the result to the Authorization header:
-<pre>
-    wget --post-data=grant_type=client_credentials \
-        --header='Authorization: Basic **BASE64HERE**' \
-        --header='Content-Type: application/x-www-form-urlencoded;charset=UTF-8' \
-        https://api.twitter.com/oauth2/token
-</pre>
+1. [Create a new Twitter app](https://dev.twitter.com/apps/new)
+1. Under OAuth settings, make a note of the **Consumer key** and **Consumer secret**
+1. Now retrieve the bearer token by building a request with curl:
+
+	curl -X POST --verbose "https://api.twitter.com/oauth2/token" -d "grant_type=client_credentials" -u consumerKey:consumerSecret
+
+The response should end like:
+
+	{"access_token":"SECRETEXAMPLESTRING","token_type":"bearer"}
+
+Save that SECRETEXAMPLESTRING to secret.php:
+
+	<?php
+	$bearer_token = 'SECRETEXAMPLESTRING';
+	?>
+
