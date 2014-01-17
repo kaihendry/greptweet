@@ -45,8 +45,13 @@ if (user) { window.location.replace("/u/" + user); }
 
 <div class="clearfix">
 <label for="username">Twitter username</label>
-<div class="input">
+
+<div class="input-group input-group-lg">
+<span class="input-group-addon">@</span>
 <input class="form-control" id="username" type="text" name="id" autocomplete="off" required placeholder="kaihendry">
+</div>
+
+<div class="input">
 </div>
 </div>
 
