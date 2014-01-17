@@ -36,6 +36,7 @@ token](https://dev.twitter.com/docs/auth/application-only-auth):
 1. Under OAuth settings, make a note of the **Consumer key** and **Consumer secret**
 1. Now retrieve the bearer token by building a request with curl:
 
+
 	curl -X POST --verbose "https://api.twitter.com/oauth2/token" -d "grant_type=client_credentials" -u consumerKey:consumerSecret
 
 The response should end like:
@@ -47,4 +48,3 @@ Save that SECRETEXAMPLESTRING to secret.php:
 	<?php
 	$bearer_token = 'SECRETEXAMPLESTRING';
 	?>
-
