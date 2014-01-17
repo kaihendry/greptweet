@@ -1,6 +1,6 @@
 var l = []; // avoid expensive $.get for local searches
 function search(query, lines) {
-	var results = "<p class=\"label\">Searched for: " + query + "</p><ol>";
+	var results = "<p>Searched for: " + query + "</p><ol>";
 	for (var i = 0; i < lines.length; i++) {
 		tweet = lines[i].split('|');
 		var re = new RegExp(query, 'i');
@@ -74,8 +74,8 @@ $(document).ready(function() {
 
 	$("input[type=text]").focus();
 
-	footer = '<p><a href="' + NAME + '.txt" class="btn primary"><i class="icon-download"></i> Download</a>';
-	footer += '<a href="' + "/f/" + NAME + '" class="btn"><i class="icon-refresh"></i> Update</a></p>';
+	footer = '<p><a href="' + NAME + '.txt" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-download"></i> Download</a>';
+	footer += '<a href="' + "/f/" + NAME + '" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-refresh"></i> Update</a></p>';
 	$("#source").html(footer);
 	document.title = NAME;
 
