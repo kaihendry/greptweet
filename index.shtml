@@ -62,7 +62,7 @@ if (user) { window.location.replace("/u/" + user); }
 
 <footer>
 <p>Super-geeks please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
-<p>Active accounts: <!--#include virtual="active-users.txt" --></p>
+<p>Active accounts: <!--#include virtual="active-users.txt" --> <a href=http://stats.webconverger.org/gb.webconverger.com/greptweet/google.html>Graph</a></p>
 <p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<!--#include virtual="version.txt" -->>
 <!--#include virtual="version.txt" -->
 </a></p>
