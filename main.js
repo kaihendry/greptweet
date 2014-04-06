@@ -79,11 +79,6 @@ $(document).ready(function() {
 	$("#source").html(footer);
 	document.title = NAME;
 
-	document.cookie = 'u=' + NAME + '; expires=Thu, 2 Aug 2021 20:47:11 UTC; path=/';
-	$("#home").click(function() {
-		document.cookie = 'u=' + NAME + '; expires=Thu, 2 Aug 2001 20:47:11 UTC; path=/';
-	});
-
 });
 
 $(window).bind('hashchange', function() {
