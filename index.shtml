@@ -29,7 +29,7 @@
 
 <div class="input-group input-group-lg">
 <span class="input-group-addon">@</span>
-<input class="form-control" id="username" type="text" name="id" autocomplete="off" required placeholder="kaihendry">
+<input class="form-control" id="username" type="text" name="id" required placeholder="kaihendry">
 </div>
 
 <div class="input">
