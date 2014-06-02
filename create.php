@@ -1,5 +1,4 @@
 <?php
-apache_setenv('no-gzip', '1');
 $HTTP_HOST = $_SERVER['SERVER_NAME'];
 
 $id = strtolower($_GET["id"]);

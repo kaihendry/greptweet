@@ -10,7 +10,7 @@
 
 # Known limitations
 
-* API only allows 3200 tweets to be downloaded this way :(
+* API only allows 3200 tweets to be downloaded this way at one time :(
 * 300 API limit using a [Application only Auth](https://dev.twitter.com/docs/auth/application-only-auth) bearer token (which doesn't seem to expire...)
 * Won't work on protected accounts (duh!)
 * No @mentions or DMs from other accounts
@@ -48,3 +48,25 @@ Save that SECRETEXAMPLESTRING to secret.php:
 	<?php
 	$bearer_token = 'SECRETEXAMPLESTRING';
 	?>
+
+# nginx configuration
+
+	server {
+		server_name greptweet.com;
+		root /srv/www/greptweet.com;
+		charset utf-8;
+		access_log /var/log/nginx/greptweet.access.log;
+		error_log /var/log/nginx/greptweet.error.log;
+
+		location / {
+			index index.php index.html;
+			rewrite ^/f/(.*)$ /create.php?id=$1 last;
+		}
+
+		location ~ \.php$ {
+			try_files      $uri = 404;
+			fastcgi_pass   unix:/run/php-fpm/php-fpm.sock;
+			fastcgi_index  index.php;
+			include        fastcgi.conf;
+		}
+	}

@@ -15,12 +15,13 @@
 
 <div class="container">
 
+
 <div class="content">
 <div class="page-header">
 <h1><a href="http://twitter.com/greptweet">@Greptweet</a> <small>you can search your tweets</small></h1>
 </div>
 
-<form name="f" action="create.cgi" method="get">
+<form name="f" action="create.php" method="get">
 
 <div class="well">
 
@@ -42,12 +43,11 @@
 </form>
 
 <footer>
-<p>Super-geeks please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
-<p>Active accounts: <!--#include virtual="active-users.txt" --> <a href=http://stats.webconverger.org/gb.webconverger.com/greptweet/google.html>Graph</a></p>
-<p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<!--#include virtual="version.txt" -->>
-<!--#include virtual="version.txt" -->
+<p>Please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
+<p><span class="label-danger label">Move to nginx</span> To fix <a href="https://github.com/kaihendry/greptweet/issues/43">#43</a>, I have moved greptweet to a new ext4 based server running nginx. When creating a new account, nginx will timeout on long running processes. The fetch should still work, but we need to refactor the UX.</p>
+<p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<?php include("version.txt"); ?>>
+<?php include("version.txt"); ?>
 </a></p>
-<p>Backup: <code>rsync -rz --include "*/" --include "*.txt" --exclude "*" greptweet.com::greptweet .</code></p>
 </footer>
 
 </div>
