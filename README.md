@@ -27,9 +27,9 @@ Last 4 tweets:
 
 # Getting a Bearer Token
 
-When you clone and attempt to run this project you will notice that you are
-missing a `secret.php` file, this file contains one setting `$bearer_token`.
-To [create a bearer
+When you clone and attempt to run this opensource project you will notice that
+you are missing a `secret.php` file, this file contains one setting
+`$bearer_token`.  To [create a bearer
 token](https://dev.twitter.com/docs/auth/application-only-auth):
 
 1. [Create a new Twitter app](https://dev.twitter.com/apps/new)
@@ -51,22 +51,4 @@ Save that SECRETEXAMPLESTRING to secret.php:
 
 # nginx configuration
 
-	server {
-		server_name greptweet.com;
-		root /srv/www/greptweet.com;
-		charset utf-8;
-		access_log /var/log/nginx/greptweet.access.log;
-		error_log /var/log/nginx/greptweet.error.log;
-
-		location / {
-			index index.php index.html;
-			rewrite ^/f/(.*)$ /create.php?id=$1 last;
-		}
-
-		location ~ \.php$ {
-			try_files      $uri = 404;
-			fastcgi_pass   unix:/run/php-fpm/php-fpm.sock;
-			fastcgi_index  index.php;
-			include        fastcgi.conf;
-		}
-	}
+See <https://github.com/kaihendry/greptweet/blob/master/nginx.conf>
