@@ -38,7 +38,7 @@ echo "<a href=\"http://$HTTP_HOST/u/$id\"><h1 class=\"alert alert-success\">Goto
 echo "<a href=\"http://$id.$HTTP_HOST\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
 }
 
-symlink ("$id.txt", "tweets.txt");
+symlink ("$id.txt.gz", "tweets.txt.gz");
 echo `sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache`;
 
 echo "<pre>";

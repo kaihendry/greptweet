@@ -26,6 +26,8 @@ fi
 page=1
 saved=0
 
+test -s "$1.txt.gz" && gunzip "$1.txt.gz"
+
 if test -s "$1.txt"
 then
 	saved=$(wc -l < "$1.txt")
@@ -61,3 +63,5 @@ saved=$(wc -l < "$1.txt")
 done
 
 echo $1 saved $saved tweets
+
+gzip "$1.txt"
