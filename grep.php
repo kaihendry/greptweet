@@ -3,7 +3,7 @@ header('Content-type: application/json');
 if (empty($_GET['q'])) { die(); }
 
 // Is this the correct way to sanitise args to shell from PHP?
-$QUERY=urldecode(escapeshellarg(urlencode($_GET['q'])));
+$QUERY=escapeshellarg($_GET['q']);
 
 // Debug Logging
 //$fp = fopen('debug.log', 'a');
