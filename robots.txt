@@ -1,3 +1,4 @@
 user-agent: *
-disallow: /create.cgi
+disallow: /create.php
 disallow: /u/*
+disallow: /f/*
