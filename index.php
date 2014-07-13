@@ -44,7 +44,6 @@
 
 <footer>
 <p>Please <a href="https://github.com/kaihendry/Greptweet">report issues and contribute on Github</a> :)</p>
-<p><span class="label-danger label">Move to nginx</span> To fix <a href="https://github.com/kaihendry/greptweet/issues/43">#43</a>, I have moved greptweet to a new ext4 based server running nginx. When creating a new account, nginx will timeout on long running processes. The fetch should still work, but we need to refactor the UX.</p>
 <p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<?php include("version.txt"); ?>>
 <?php include("version.txt"); ?>
 </a></p>

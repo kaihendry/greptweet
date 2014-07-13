@@ -35,7 +35,7 @@ symlink ("../../grep.php", "grep.php");
 if (strpos($id, '_') !== false) {
 echo "<a href=\"http://$HTTP_HOST/u/$id\"><h1 class=\"alert alert-success\">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>";
 } else {
-echo "<a href=\"http://$id.$HTTP_HOST\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
+echo "<a href=\"http://$HTTP_HOST/u/$id\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
 }
 
 echo `sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache`;
@@ -43,4 +43,4 @@ echo `sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcach
 $logfile = "fetch-" . time() . ".log";
 exec(sprintf("../../fetch-tweets.sh %s > %s 2>&1 &", $id, $logfile));
 ?>
-<p>Fetching tweets can take time! And it's limited by Twitter to 3200 maximum at any one time. Please view the <a href=/u/<?php echo "$id/$logfile";?>>logfile</a> to see it's progress.</p>
+<p>Fetching tweets can take time! And it's limited by Twitter to 3200 maximum at any one time. Please view the <a href=/u/<?php echo "$id/$logfile";?>>logfile</a> to see its progress.</p>
