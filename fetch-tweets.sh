@@ -64,5 +64,7 @@ done
 
 echo $1 saved $saved tweets
 
+test -L "$1.txt.gz" && rm "$1.txt.gz"
 gzip -v "$1.txt"
+ln -sfv "$1.txt.gz" tweets.txt.gz
 stat -L tweets.txt 2>/dev/null || rm -f tweets.txt
