@@ -21,7 +21,7 @@ if(empty($id)) {
 
 <?php
 if (is_dir("u/$id")) {
-	echo "<h1 class='alert alert-info'>Attempting to update $id</h1>";
+	echo "<h1>Attempting to update $id</h1>";
 } else {
 	if (!mkdir("u/$id", 0777, true)) {
 		die("Failed to create u/$id directory.");
@@ -38,8 +38,9 @@ echo "<a href=\"http://$HTTP_HOST/u/$id\"><h1 class=\"alert alert-success\">Goto
 echo "<a href=\"http://$id.$HTTP_HOST\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
 }
 
-symlink ("$id.txt.gz", "tweets.txt.gz");
 echo `sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache`;
 
-echo "<pre>";
-echo `../../fetch-tweets.sh $id & disown`;
+$logfile = "fetch-" . time() . ".log";
+exec(sprintf("../../fetch-tweets.sh %s > %s 2>&1 &", $id, $logfile));
+?>
+<p>Fetching tweets can take time! And it's limited by Twitter to 3200 maximum at any one time. Please view the <a href=/u/<?php echo "$id/$logfile";?>>logfile</a> to see it's progress.</p>
