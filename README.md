@@ -58,4 +58,4 @@ See <https://github.com/kaihendry/greptweet/blob/master/nginx.conf>
 <http://backup.greptweet.com/tweets.tar>
 
 	@daily cd /srv/www/greptweet.com && git describe --always > version.txt
-	@daily find /srv/www/greptweet.com/u/ -name '*.gz' -type f -exec tar rf /srv/www/backup.greptweet.com/tweets.tar {} +
+	@daily find /srv/www/greptweet.com/u/ -name '*.gz' -type f -print0 | tar cf /srv/www/backup.greptweet.com/tweets.tar --null -T -
