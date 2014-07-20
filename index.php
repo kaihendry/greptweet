@@ -2,9 +2,13 @@
 <html><head>
 <meta charset="utf-8">
 <title>GrepTweet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<link rel="icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="GrepTweet">
+<link rel=icon href=/icons/greptweet_birdie.png sizes="500x500" type="image/png">
+<link rel=icon href=/icons/greptweet_birdie.svg sizes="any" type="image/svg+xml">
+<link href="/icons/120x120.png" sizes="120x120" rel="apple-touch-icon">
 <meta name="description" content="Download and search your tweets - no password login required!">
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css">
