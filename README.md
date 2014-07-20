@@ -52,3 +52,10 @@ Save that SECRETEXAMPLESTRING to secret.php:
 # nginx configuration
 
 See <https://github.com/kaihendry/greptweet/blob/master/nginx.conf>
+
+# Daily backup
+
+<http://backup.greptweet.com/tweets.tar>
+
+	@daily cd /srv/www/greptweet.com && git describe --always > version.txt
+	@daily find /srv/www/greptweet.com/u/ -name '*.gz' -type f -exec tar rf /srv/www/backup.greptweet.com/tweets.tar {} +
