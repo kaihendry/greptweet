@@ -49,13 +49,13 @@ Save that SECRETEXAMPLESTRING to secret.php:
 	$bearer_token = 'SECRETEXAMPLESTRING';
 	?>
 
-# nginx configuration
-
-See <https://github.com/kaihendry/greptweet/blob/master/nginx.conf>
-
 # Daily backup
 
 <http://backup.greptweet.com/tweets.tar>
 
 	@daily cd /srv/www/greptweet.com && git describe --always > version.txt
 	@daily find /srv/www/greptweet.com/u/ -name '*.gz' -type f -print0 | tar cf /srv/www/backup.greptweet.com/tweets.tar --null -T -
+
+# Setting up the hosting environment
+
+<http://dabase.com/blog/Experiencing_CoreOS+Docker/>

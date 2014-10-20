@@ -1,0 +1,15 @@
+[Unit]
+# https://docs.docker.com/articles/host_integration/
+# https://coreos.com/docs/launching-containers/launching/getting-started-with-systemd/
+Description=Greptweet
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill greptweet1
+ExecStartPre=-/usr/bin/docker rm greptweet1
+ExecStart=/usr/bin/docker run --name greptweet1 -v /srv/www/greptweet.com:/srv/http/u -p 80:80 greptweet
+
+[Install]
+WantedBy=multi-user.target
