@@ -41,7 +41,7 @@
 </div>
 </div>
 
-<button class="btn btn-primary btn-lg" id="b" onclick="submitPressed()">Fetch tweets</button>
+<button class="btn btn-primary btn-lg" id="b" type="submit">Fetch tweets</button>
 </div>
 
 </form>
