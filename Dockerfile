@@ -17,5 +17,3 @@ EXPOSE 80
 
 # We use supervisord to keep the two processes we need going
 CMD supervisord -n -c /etc/supervisord.conf
-
-# sudo docker run -v /srv/www/greptweet.com:/srv/http/u -p 80:80 -t -i greptweet
