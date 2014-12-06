@@ -1,17 +1,14 @@
 FROM base/archlinux:latest
 MAINTAINER Kai Hendry <hendry@iki.fi>
-RUN pacman -Syu --noconfirm nginx php php-fpm supervisor git
+RUN pacman -Syu --noconfirm nginx php php-fpm supervisor
 
 # /srv/http used to match with Archlinux's php.ini open_basedir default
-RUN git clone https://github.com/kaihendry/greptweet.git /srv/http
-WORKDIR /srv/http
-RUN git describe --always > version.txt
-
+ADD www /srv/http
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD php-fpm.ini /etc/supervisor.d/php-fpm.ini
 ADD nginx.ini /etc/supervisor.d/nginx.ini
-ADD secret.php /srv/http/secret.php
 
+# TODO setfacl?
 RUN chown -R http:http /srv/http
 
 VOLUME /srv/http/u/

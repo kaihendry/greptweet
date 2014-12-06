@@ -58,4 +58,5 @@ Save that SECRETEXAMPLESTRING to secret.php:
 
 # Setting up the hosting environment
 
-<http://dabase.com/blog/Experiencing_CoreOS+Docker/>
+* <http://dabase.com/blog/Docker_container_update_workflow/>
+* <http://dabase.com/blog/Experiencing_CoreOS+Docker/>
