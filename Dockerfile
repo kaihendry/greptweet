@@ -1,6 +1,6 @@
 FROM base/archlinux:latest
 MAINTAINER Kai Hendry <hendry@iki.fi>
-RUN pacman -Syu --noconfirm nginx php php-fpm supervisor
+RUN pacman --noconfirm -Sy archlinux-keyring && pacman -q -Syu --noconfirm nginx php php-fpm supervisor
 
 # /srv/http used to match with Archlinux's php.ini open_basedir default
 ADD www /srv/http
