@@ -1,4 +1,3 @@
 user-agent: *
 disallow: /create.php
-disallow: /u/*
 disallow: /f/*

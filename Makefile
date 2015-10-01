@@ -1,6 +1,19 @@
+NAME=greptweet
+REPO=hendry/$(NAME)
+
+.PHONY: start stop build sh
+
+all: build
+
 build:
 	git describe --always > www/version.txt
-	docker build -t greptweet .
+	docker build -t $(REPO) .
 
-test:
-	docker run -v /srv/www/greptweet.com:/srv/http/u -p 81:80 -t -i greptweet
+start:
+	docker run -d --name $(NAME) -v /srv/www/greptweet.com:/srv/http/u -p 81:80 $(REPO)
+
+stop:
+	docker stop $(NAME)
+
+sh:
+	docker exec -it $(NAME) /bin/sh
