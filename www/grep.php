@@ -10,7 +10,7 @@ $QUERY=escapeshellarg($_GET['q']);
 //fwrite($fp, $_GET['q'] . " : " . $QUERY . "\n");
 //fclose($fp);
 
-exec("zgrep -Fhi $QUERY tweets.txt", $array);
+exec("gunzip -c tweets.txt | grep -Fhi $QUERY", $array);
 $data = json_encode($array);
 echo $_GET['jsoncallback'] . '(' . $data . ');';
 ?>

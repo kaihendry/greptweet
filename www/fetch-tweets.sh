@@ -10,8 +10,8 @@ else
 	mkdir lock
 fi
 
-temp=$(mktemp "$1.XXXX")
-temp2=$(mktemp "$1.XXXX")
+temp=$(mktemp)
+temp2=$(mktemp)
 
 trap 'rm -vrf "${temp}" "${temp2}" lock' EXIT
 
@@ -35,8 +35,8 @@ then
 	test "$2" && since='&max_id='$(tail -n1 "$1.txt" | cut -d'|' -f1) # use max_id to get older tweets
 fi
 
-while urlargs="screen_name=${1}&count=200&page=${page}${since}&include_rts=1&trim_user=0"; echo "$urlargs"; "$(dirname "$0")"/oauth.php "$urlargs" |
-"$(dirname "$0")"/json-to-text.php > "$temp2"; test "$(wc -l < "$temp2")" -gt 0;
+while urlargs="screen_name=${1}&count=200&page=${page}${since}&include_rts=1&trim_user=0"; echo "$urlargs"; /srv/http/oauth.php "$urlargs" |
+/srv/http/json-to-text.php > "$temp2"; test "$(wc -l < "$temp2")" -gt 0;
 do
 
 #cat temp2
@@ -66,5 +66,4 @@ echo "$1" saved "$saved" tweets
 
 test -L "$1.txt.gz" && rm "$1.txt.gz"
 gzip -v "$1.txt"
-ln -sfv "$1.txt.gz" tweets.txt.gz
-stat -L tweets.txt 2>/dev/null || rm -f tweets.txt
+ln -sfv "$1.txt.gz" tweets.txt
