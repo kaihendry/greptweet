@@ -10,10 +10,9 @@ if(empty($id)) {
 
 <!DOCTYPE html>
 <html>
- <head>
-  <meta charset="utf-8" />
-  <title>Fetching tweets of <?php echo $id; ?></title>
-  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<head>
+<meta charset="utf-8" />
+<title>Fetching tweets of <?php echo $id; ?></title>
 </head>
 <body>
 <div class="container">
@@ -33,9 +32,9 @@ symlink ("../../index.html", "index.html");
 symlink ("../../grep.php", "grep.php");
 
 if (strpos($id, '_') !== false) {
-echo "<a href=\"http://$HTTP_HOST/u/$id\"><h1 class=\"alert alert-success\">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>";
+echo "<a href=\"/u/$id/\"><h1 class=\"alert alert-success\">Goto http://$HTTP_HOST/u/$id to grep!</h1></a>";
 } else {
-echo "<a href=\"http://$HTTP_HOST/u/$id\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
+echo "<a href=\"/u/$id/\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
 }
 
 echo `sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache`;

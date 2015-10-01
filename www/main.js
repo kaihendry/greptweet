@@ -53,10 +53,11 @@ $(document).ready(function() {
 	NAME = window.location.pathname.split('/')[2];
 	$("#name").html(NAME);
 
-	appletouchicon = document.createElement('link');
-	appletouchicon.setAttribute("rel", "apple-touch-icon");
-	appletouchicon.setAttribute("href", "https://api.twitter.com/1/users/profile_image?screen_name=" + NAME + "&size=bigger");
-	document.getElementsByTagName("head")[0].appendChild(appletouchicon);
+	// appletouchicon = document.createElement('link');
+	// appletouchicon.setAttribute("rel", "apple-touch-icon");
+	// TODO: Grab profile URL out https://dev.twitter.com/overview/general/user-profile-images-and-banners
+	// appletouchicon.setAttribute("href", "https://api.twitter.com/1/users/profile_image?screen_name=" + NAME + "&size=bigger");
+	// document.getElementsByTagName("head")[0].appendChild(appletouchicon);
 
 	$("input[type=search]").change(function() {
 		query = this.value;
@@ -74,7 +75,7 @@ $(document).ready(function() {
 
 	$("input[type=text]").focus();
 
-	footer = '<p><a href="' + NAME + '.txt" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-download"></i> Download</a>';
+	footer = '<p><a href=tweets.txt class="btn btn-default btn-lg"><i class="glyphicon glyphicon-download"></i> Download</a>';
 	footer += '<a href="' + "/f/" + NAME + '" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-refresh"></i> Update</a></p>';
 	$("#source").html(footer);
 	document.title = NAME;

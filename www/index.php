@@ -10,9 +10,6 @@
 <link rel=icon href=/icons/greptweet_birdie.svg sizes="any" type="image/svg+xml">
 <link href="/icons/120x120.png" sizes="120x120" rel="apple-touch-icon">
 <meta name="description" content="Download and search your tweets - no password login required!">
-<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/bootstrap/css/bootstrap-theme.min.css">
-
 </head>
 
 <body>

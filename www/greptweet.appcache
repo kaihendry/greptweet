@@ -3,12 +3,6 @@ CACHE MANIFEST
 CACHE:
 tweets.txt
 /main.js
-/bootstrap/css/bootstrap.min.css
-/bootstrap/css/bootstrap-theme.min.css
-/bootstrap/fonts/glyphicons-halflings-regular.ttf
-/bootstrap/fonts/glyphicons-halflings-regular.woff
-/bootstrap/fonts/glyphicons-halflings-regular.eot
-/bootstrap/fonts/glyphicons-halflings-regular.svg
 /jquery.js
 NETWORK:
 *
