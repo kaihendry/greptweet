@@ -75,8 +75,8 @@ $(document).ready(function() {
 
 	$("input[type=text]").focus();
 
-	footer = '<p><a href=tweets.txt class="btn btn-default btn-lg"><i class="glyphicon glyphicon-download"></i> Download</a>';
-	footer += '<a href="' + "/f/" + NAME + '" class="btn btn-default btn-lg"><i class="glyphicon glyphicon-refresh"></i> Update</a></p>';
+	footer = '<li><a href=tweets.txt><img src="/icons/download.svg" alt="Download"></a></li>';
+	footer += '<li><a href="' + "/f/" + NAME + '"><img src="/icons/refresh.svg" alt="Refresh"></a></li>';
 	$("#source").html(footer);
 	document.title = NAME;
 

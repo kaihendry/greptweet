@@ -4,5 +4,6 @@ CACHE:
 tweets.txt
 /main.js
 /jquery.js
+/style.css
 NETWORK:
 *

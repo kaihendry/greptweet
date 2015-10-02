@@ -13,10 +13,9 @@ if(empty($id)) {
 <head>
 <meta charset="utf-8" />
 <title>Fetching tweets of <?php echo $id; ?></title>
+<link href="/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-<div class="content">
 
 <?php
 if (is_dir("u/$id")) {
@@ -43,3 +42,6 @@ $logfile = "fetch-" . time() . ".log";
 exec(sprintf("../../fetch-tweets.sh %s > %s 2>&1 &", $id, $logfile));
 ?>
 <p>Fetching tweets can take time! And it's limited by Twitter to 3200 maximum at any one time. Please view the <a href=/u/<?php echo "$id/$logfile";?>>logfile</a> to see its progress.</p>
+
+</body>
+</html>
