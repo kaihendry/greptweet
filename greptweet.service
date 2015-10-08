@@ -1,6 +1,8 @@
 [Unit]
 # https://docs.docker.com/articles/host_integration/
 # https://coreos.com/docs/launching-containers/launching/getting-started-with-systemd/
+# /etc/systemd/system/greptweet.service
+# sudo systemctl enable greptweet.service
 Description=Greptweet
 After=docker.service
 Requires=docker.service
