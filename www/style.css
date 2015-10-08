@@ -1,9 +1,9 @@
 body {
-	font-family: "San Francisco", sans-serif;
+	font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif;
 	max-width: 50em;
 	position: relative;
-	margin: 0 auto 0;
-	padding: 0 1.5em 3%;
+	margin: 1em auto 0;
+	padding: 0.2em 1.5em 3%;
 	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
@@ -15,4 +15,4 @@ ul {  margin: 0; padding: 0 }
 
 ul li { list-style-type: none; display: inline; }
 
-input, button { font-size: 1.3em; max-width: 10em;}
+input, button { font-size: 1.1em; max-width: 10em; margin: 0.4em; padding: 0.3em; color: #2d2d2d; outline: none; border-radius: 3px; }
