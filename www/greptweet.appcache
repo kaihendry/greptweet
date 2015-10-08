@@ -5,5 +5,8 @@ tweets.txt
 /main.js
 /jquery.js
 /style.css
+/icons/download.svg
+/icons/refresh.svg
+/icons/greptweet_birdie.svg
 NETWORK:
 *
