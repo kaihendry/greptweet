@@ -2,8 +2,9 @@
 if (preg_match('#^/u/#', $_SERVER["REQUEST_URI"])) {
 $username = basename($_SERVER["REQUEST_URI"]);
 	if ((!empty($username)) && (strlen($username < 16)) && preg_match('/^[A-Za-z0-9_]+$/', $username)) {
-	header("Location:http://" . $_SERVER["HTTP_HOST"] . "/f/" . $username);
-	die();
+		header("HTTP/1.1 303 See Other");
+		header("Location:http://" . $_SERVER["HTTP_HOST"] . "/f/" . strtolower($username));
+		die();
 	}
 }
 ?>
