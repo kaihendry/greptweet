@@ -22,6 +22,7 @@ ADD nginx.ini /etc/supervisor.d/nginx.ini
 RUN mkdir -p /srv/http/u
 VOLUME /srv/http/u/
 VOLUME /srv/http/
+VOLUME /var/log/nginx
 
 EXPOSE 80
 

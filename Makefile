@@ -10,7 +10,7 @@ build:
 	docker build -t $(REPO) .
 
 start:
-	docker run -d --name $(NAME) -v /mnt/2tb/greptweet/:/srv/http/u -v $(PWD)/www:/srv/http/ -p 81:80 $(REPO)
+	docker run -d --name $(NAME) -v /mnt/2tb/greptweet/:/srv/http/u -v $(PWD)/www:/srv/http/ -v $(PWD)/logs:/var/log/nginx/ -p 81:80 $(REPO)
 
 stop:
 	docker stop $(NAME)
