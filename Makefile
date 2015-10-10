@@ -14,6 +14,7 @@ start:
 
 stop:
 	docker stop $(NAME)
+	docker rm $(NAME)
 
 sh:
 	docker exec -it $(NAME) /bin/sh

@@ -15,4 +15,4 @@ ul {  margin: 0; padding: 0 }
 
 ul li { list-style-type: none; display: inline; }
 
-input, button { font-size: 1.1em; max-width: 10em; margin: 0.4em; padding: 0.3em; color: #2d2d2d; outline: none; border-radius: 3px; }
+input, button { font-size: 1.1em; max-width: 10em; margin: 0.4em; padding: 0.3em; color: #2d2d2d; border-radius: 3px; }

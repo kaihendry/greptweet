@@ -4,8 +4,6 @@
 
 * Uses [HTML offline feature](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html)
 * Aims to [suck less](http://suckless.org) by keeping lines of code low
-* Dependencies: PHP, curl
-* Look and feel by <http://twitter.github.com/bootstrap>
 * **Please** review and comment on the code!
 
 # Known limitations
@@ -17,13 +15,13 @@
 
 # API
 
-Fetch your tweets manually by accessing the URL:
+Invoke a fetch of a TWITTER_USERNAME by accessing the URL:
 
 	http://greptweet.com/f/TWITTER_USERNAME
 
 Last 4 tweets:
 
-	curl -s http://greptweet.com/u/webconverger/tweets.txt | head -n4
+	curl --compressed -s http://greptweet.com/u/webconverger/tweets.txt | head -n4
 
 # Getting a Bearer Token
 
@@ -43,20 +41,8 @@ The response should end like:
 
 	{"access_token":"SECRETEXAMPLESTRING","token_type":"bearer"}
 
-Save that SECRETEXAMPLESTRING to secret.php:
+Save that SECRETEXAMPLESTRING to www/secret.php:
 
 	<?php
 	$bearer_token = 'SECRETEXAMPLESTRING';
 	?>
-
-# Daily backup
-
-<http://backup.greptweet.com/tweets.tar>
-
-	@daily cd /srv/www/greptweet.com && git describe --always > version.txt
-	@daily find /srv/www/greptweet.com/u/ -name '*.gz' -type f -print0 | tar cf /srv/www/backup.greptweet.com/tweets.tar --null -T -
-
-# Setting up the hosting environment
-
-* <http://dabase.com/blog/Docker_container_update_workflow/>
-* <http://dabase.com/blog/Experiencing_CoreOS+Docker/>
