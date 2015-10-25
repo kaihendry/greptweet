@@ -26,7 +26,7 @@ fi
 page=1
 saved=0
 
-test -s "$1.txt.gz" && gunzip "$1.txt.gz"
+test -s "$1.txt.gz" && gunzip < "$1.txt.gz" > "$1.txt"
 
 if test -s "$1.txt"
 then
@@ -65,5 +65,5 @@ done
 echo "$1" saved "$saved" tweets
 
 test -L "$1.txt.gz" && rm "$1.txt.gz"
-gzip -v "$1.txt"
+gzip -f "$1.txt"
 ln -sfv "$1.txt.gz" tweets.txt
