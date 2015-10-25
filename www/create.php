@@ -13,6 +13,7 @@ if(empty($id)) {
 <head>
 <meta charset="utf-8" />
 <title>Fetching tweets of <?php echo $id; ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="/style.css" rel="stylesheet">
 </head>
 <body>
@@ -36,10 +37,14 @@ echo "<a href=\"/u/$id/\"><h1 class=\"alert alert-success\">Goto http://$HTTP_HO
 echo "<a href=\"/u/$id/\"><h1 class=\"alert alert-success\">Goto http://$id.$HTTP_HOST to grep!</h1></a>";
 }
 
-echo `sed -e "s,TIMESTAMP,$(date)," ../../greptweet.appcache > greptweet.appcache`;
-
 $logfile = "fetch-" . time() . ".log";
-exec(sprintf("../../fetch-tweets.sh %s > %s 2>&1 &", $id, $logfile));
+
+// Only update Appcache file once we are done with the fetch
+exec(sprintf("../../fetch-tweets.sh %s > %s 2>&1 && sed -e 's,TIMESTAMP,%s,' ../../greptweet.appcache > greptweet.appcache &", $id, $logfile, date("c")));
+
+// Remove logs older than a day
+`find -name '*.log' -mtime +1 -exec rm {} \; &`;
+
 ?>
 <p>Fetching tweets can take time! And it's limited by Twitter to 3200 maximum at any one time. Please view the <a href=/u/<?php echo "$id/$logfile";?>>logfile</a> to see its progress.</p>
 
