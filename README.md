@@ -2,8 +2,10 @@
 
 <a href="http://www.flickr.com/photos/hendry/7577182774/" title="Offline Greptweet on Chrome IOS by Kai Hendry, on Flickr"><img src="http://farm8.staticflickr.com/7133/7577182774_d5b654ea69_n.jpg" width="213" height="320" alt="Offline Greptweet on Chrome IOS"></a>
 
+* Image VIRTUAL SIZE <100MB (Docker)
 * Uses [HTML offline feature](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html)
 * Aims to [suck less](http://suckless.org) by keeping lines of code low
+* Can run from command line
 * **Please** review and comment on the code!
 
 # Known limitations
@@ -21,7 +23,7 @@ Invoke a fetch of a TWITTER_USERNAME by accessing the URL:
 
 Last 4 tweets:
 
-	curl --compressed -s http://greptweet.com/u/webconverger/tweets.txt | head -n4
+	curl --compressed -s http://greptweet.com/u/webconverger/tweets.txt | head
 
 # Getting a Bearer Token
 
