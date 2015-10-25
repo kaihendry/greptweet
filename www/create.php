@@ -40,7 +40,7 @@ echo "<a href=\"/u/$id/\"><h1 class=\"alert alert-success\">Goto http://$id.$HTT
 $logfile = "fetch-" . time() . ".log";
 
 // Only update Appcache file once we are done with the fetch
-exec(sprintf("../../fetch-tweets.sh %s > %s 2>&1 && sed -e 's,TIMESTAMP,%s,' ../../greptweet.appcache > greptweet.appcache &", $id, $logfile, date("c")));
+exec(sprintf("nohup sh -c '../../fetch-tweets.sh %s && sed -e 's,TIMESTAMP,%s,' ../../greptweet.appcache > greptweet.appcache' >%s 2>&1 &", $id,  date("c"), $logfile));
 
 // Remove logs older than a day
 `find -name '*.log' -mtime +1 -exec rm {} \; &`;
