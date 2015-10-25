@@ -7,6 +7,7 @@ $username = basename($_SERVER["REQUEST_URI"]);
 		die();
 	}
 }
+http_response_code(404);
 ?>
 <img style="width: 20%;" src=/icons/greptweet_birdie.svg>
-<h1>Error <?php echo $_SERVER["REQUEST_URI"]; ?></h1>
+<h1>404 error <?php echo $_SERVER["REQUEST_URI"]; ?></h1>
