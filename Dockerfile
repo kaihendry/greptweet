@@ -12,7 +12,8 @@ RUN apk upgrade --update --available && \
       bash \
       vim \
       supervisor \
-    && rm -f /var/cache/apk/*
+    && rm -f /var/cache/apk/* \
+    && chmod -R 755 /var/lib/nginx
 
 ADD www /srv/http
 ADD nginx.conf /etc/nginx/nginx.conf

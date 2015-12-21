@@ -24,18 +24,11 @@
 <button class="btn btn-primary btn-lg" id="b" type="submit">Fetch tweets</button>
 </form>
 
-<p>Tutorial video:
-<video controls preload="none">
-<source src='gt-intro.mp4' type='video/mp4'>
-<track label="English subtitles" kind="subtitles" srclang="en" src="gt-intro.vtt" default>
-</video>
-</p>
-
 <footer>
+<p><a href=tut-video.html>Tutorial screencast</a></p>
 <p>Version: <a href=https://github.com/kaihendry/Greptweet/commit/<?php include("version.txt"); ?>>
 <?php include("version.txt"); ?>
 </a></p>
-<p><?php echo 'Current PHP version: ' . phpversion();?></p>
 </footer>
 
 </body>

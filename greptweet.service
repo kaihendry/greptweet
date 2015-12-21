@@ -11,7 +11,7 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill greptweet1
 ExecStartPre=-/usr/bin/docker rm greptweet1
-ExecStart=/usr/bin/docker run --name greptweet1 -v /srv/www/greptweet.com:/srv/http/u -p 80:80 hendry/greptweet
+ExecStart=/usr/bin/docker run --name greptweet1 -v /srv/www/greptweet.com:/srv/http/u -v /home/core/greptweet/www:/srv/http/ -p 80:80 hendry/greptweet
 ExecStop=/usr/bin/docker stop greptweet1
 
 [Install]
