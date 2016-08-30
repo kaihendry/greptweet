@@ -4,12 +4,12 @@
 if (empty($argv[1])) { exit(1); }
 $urlargs = $argv[1];
 
-function fetch($bearer_token, $query){
+function fetch($query){
 	$url = "https://api.twitter.com/1.1/statuses/user_timeline.json?";
 	$headers = array(
 		"GET /1.1/statuses/user_timeline.json?".$query." HTTP/1.1",
 		"Host: api.twitter.com",
-		"Authorization: Bearer ".$bearer_token."",
+		"Authorization: Bearer ".getenv('access_token')."",
 	);
 	$ch = curl_init();  // setup a curl
 	curl_setopt($ch, CURLOPT_URL, $url.$query);  // set url to send to
@@ -29,8 +29,5 @@ function fetch($bearer_token, $query){
 
 }
 
-// $bearer_token = get_bearer_token(); // bearer token seems to last
-require("secret.php"); // contains $bearer_token
-print fetch($bearer_token, $urlargs); //  search for the work 'test'
-//invalidate_bearer_token($bearer_token); // invalidate the token
+print fetch($urlargs); //  search for the work 'test'
 ?>

@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-MAINTAINER Kai Hendry <hendry@iki.fi>
+MAINTAINER Kai Hendry <hendry+greptweet@iki.fi>
 
 RUN apk upgrade --update --available && \
     apk add \
@@ -21,9 +21,7 @@ ADD php-fpm.ini /etc/supervisor.d/php-fpm.ini
 ADD nginx.ini /etc/supervisor.d/nginx.ini
 
 RUN mkdir -p /srv/http/u
-VOLUME /srv/http/u/
-VOLUME /srv/http/
-VOLUME /var/log/nginx
+RUN chmod -R 777 /srv/http/u
 
 EXPOSE 80
 
