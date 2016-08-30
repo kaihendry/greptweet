@@ -20,6 +20,8 @@ ADD nginx.conf /etc/nginx/nginx.conf
 ADD php-fpm.ini /etc/supervisor.d/php-fpm.ini
 ADD nginx.ini /etc/supervisor.d/nginx.ini
 
+RUN echo "clear_env = no" >> /etc/php/php-fpm.conf
+
 RUN mkdir -p /srv/http/u
 RUN chmod -R 777 /srv/http/u
 
