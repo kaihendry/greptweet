@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/bin/env php5
 <?php
 
 if (empty($argv[1])) { exit(1); }

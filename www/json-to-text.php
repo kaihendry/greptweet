@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/bin/env php5
 <?php
 $json_string = file_get_contents("php://stdin");
 $foo = json_decode($json_string);
